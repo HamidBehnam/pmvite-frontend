@@ -29,6 +29,8 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '@auth0/auth0-angular';
 import { ScrollableTabsDialogComponent } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.component';
 import { UiService } from '../../../shared/services/ui.service';
+import { FileDownloadMeta } from '../../../shared/types/file-download-meta';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-project-detail-broker',
@@ -307,6 +309,15 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
         }
 
         this.matSnackBar.open('Attachment was successfully updated!', 'OK', {duration: 5000});
+      }, _ => this.matSnackBar.open('Something went wrong, please try again later!', 'OK', {duration: 5000}));
+  }
+
+  downloadAttachment(fileDownloadMeta: FileDownloadMeta): void {
+    this.attachmentsService.downloadAttachment(fileDownloadMeta.fileUrl)
+      .subscribe(data => {
+
+        saveAs(data, fileDownloadMeta.fileName);
+
       }, _ => this.matSnackBar.open('Something went wrong, please try again later!', 'OK', {duration: 5000}));
   }
 

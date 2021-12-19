@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
 import { UiService } from '../../services/ui.service';
 import { labelShowHideTrigger } from '../../animations/label-show-hide-trigger';
+import { FileDownloadMeta } from '../../types/file-download-meta';
 
 @Component({
   selector: 'app-attachment-detail',
@@ -21,6 +22,7 @@ export class AttachmentDetailComponent implements OnInit {
   @Input() attachment?: FileReference;
   @Input() canEdit?: boolean;
   @Output() saveRequested: EventEmitter<FormInteractionResult<AttachmentForm>>;
+  @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
   attachmentFormGroup: FormGroup;
   editingFieldName = '';
   fieldNames = {
@@ -35,6 +37,7 @@ export class AttachmentDetailComponent implements OnInit {
     });
 
     this.saveRequested = new EventEmitter<FormInteractionResult<AttachmentForm>>();
+    this.downloadRequested = new EventEmitter<FileDownloadMeta>();
   }
 
   ngOnInit(): void {
@@ -101,5 +104,12 @@ export class AttachmentDetailComponent implements OnInit {
 
   getAttachmentUploadDateTime(uploadRawDateTime: string): string {
     return moment(uploadRawDateTime).format('MMMM Do YYYY, h:mm:ss A');
+  }
+
+  downloadAttachment(fileUrl: string, fileName: string): void {
+    this.downloadRequested.emit({
+      fileUrl,
+      fileName
+    });
   }
 }

@@ -97,6 +97,7 @@
                                     [attachmentDirectLink]="getAttachmentDirectLink(project, selectedAttachment)"
                                     [canEdit]="isViewerAtLeastDeveloper(project)"
                                     (saveRequested)="saveAttachment($event)"
+                                    (downloadRequested)="downloadAttachment($event)"
                                     (projectAttachmentsListRequested)="showProjectAttachmentsList()">
               </app-attachment-focus>
             </ng-container>
@@ -109,6 +110,7 @@
                                     [closeAttachmentCreationPanel]="closeAttachmentCreationPanel$"
                                     [attachmentCreationPanelOpeningSignal]="attachmentCreationPanelOpeningSignal"
                                     (saveRequested)="saveAttachment($event)"
+                                    (downloadRequested)="downloadAttachment($event)"
                                     (focusViewRequested)="openAttachmentInFocusView($event)"
                                     (deleteRequested)="deleteAttachment($event)"
                                     (attachmentCreationPanelOpened)
