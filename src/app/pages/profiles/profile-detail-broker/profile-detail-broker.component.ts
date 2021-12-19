@@ -67,15 +67,15 @@ export class ProfileDetailBrokerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.requestedProfileId = params.id;
+      this.requestedProfileId = params['id'];
       this.generalSubscription = this.profilesService.getProfile(this.requestedProfileId).subscribe();
     });
 
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.pageQueryParams = queryParams;
-      this.pageSection = queryParams.section;
+      this.pageSection = queryParams['section'];
 
-      switch (queryParams.section) {
+      switch (queryParams['section']) {
         case '1':
           this.breadcrumbSections = ['Projects'];
           if (queryParams[this.panelQueryParam.ProjectCreationPanel] === 'open') {

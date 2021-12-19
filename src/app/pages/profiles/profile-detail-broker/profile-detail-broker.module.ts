@@ -15,6 +15,7 @@ import { UserSettingsListModule } from '../../../shared/components/user-settings
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileGeneralModule } from '../../../shared/components/profile-general/profile-general.module';
 import { ScrollableTabsDialogModule } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.module';
+import { WithAuthModule } from '../../../shared/pipes/with-auth/with-auth.module';
 
 
 
@@ -37,7 +38,8 @@ import { ScrollableTabsDialogModule } from '../../../shared/components/scrollabl
     UserProjectsListModule,
     UserTasksListModule,
     UserSettingsListModule,
-    ScrollableTabsDialogModule
+    ScrollableTabsDialogModule,
+    WithAuthModule
   ]
 })
 export class ProfileDetailBrokerModule { }

@@ -108,15 +108,15 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.requestedProjectId = params.id;
+      this.requestedProjectId = params['id'];
       this.generalSubscription = this.projectsService.getProject(this.requestedProjectId).subscribe();
     });
 
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.pageQueryParams = queryParams;
-      this.pageSection = queryParams.section;
+      this.pageSection = queryParams['section'];
 
-      switch (queryParams.section) {
+      switch (queryParams['section']) {
         case '1':
           this.breadcrumbSections = ['Members'];
           if (queryParams[this.panelQueryParam.MemberCreationPanel] === 'open') {
@@ -130,11 +130,11 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
         case '2':
           this.breadcrumbSections = ['Tasks'];
 
-          if (queryParams.task) {
+          if (queryParams['task']) {
             this.tasksViewMode = ViewMode.FocusView;
 
-            if (this.selectedTaskId !== queryParams.task) {
-              this.selectedTaskId = queryParams.task;
+            if (this.selectedTaskId !== queryParams['task']) {
+              this.selectedTaskId = queryParams['task'];
               this.taskSubscription = this.tasksService.getTask(this.selectedTaskId)
                 .subscribe(task => {
                   this.breadcrumbSectionsCache.set('Tasks', task.title);
@@ -163,11 +163,11 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
           break;
         case '3':
           this.breadcrumbSections = ['Attachments'];
-          if (queryParams.attachment) {
+          if (queryParams['attachment']) {
             this.attachmentsViewMode = ViewMode.FocusView;
 
-            if (this.selectedAttachmentId !== queryParams.attachment) {
-              this.selectedAttachmentId = queryParams.attachment;
+            if (this.selectedAttachmentId !== queryParams['attachment']) {
+              this.selectedAttachmentId = queryParams['attachment'];
               this.attachmentSubscription =
                 this.attachmentsService.getProjectAttachmentMeta(this.requestedProjectId, this.selectedAttachmentId)
                   .subscribe(attachment => {

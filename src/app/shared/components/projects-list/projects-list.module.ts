@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProjectsFilterSortModule } from '../projects-filter-sort/projects-filter-sort.module';
 import { NgxJdenticonModule } from 'ngx-jdenticon';
+import { WithAuthModule } from '../../pipes/with-auth/with-auth.module';
 
 
 
@@ -32,7 +33,8 @@ import { NgxJdenticonModule } from 'ngx-jdenticon';
     MatBadgeModule,
     MatPaginatorModule,
     ProjectsFilterSortModule,
-    NgxJdenticonModule
+    NgxJdenticonModule,
+    WithAuthModule
   ]
 })
 export class ProjectsListModule { }

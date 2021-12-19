@@ -7,7 +7,7 @@ export class TasksQuery extends QueryEntity<TasksState> {
 
   selectSelectedTask$ = this.select('selectedTask');
 
-  constructor(protected store: TasksStore) {
+  constructor(protected override store: TasksStore) {
     super(store);
   }
 

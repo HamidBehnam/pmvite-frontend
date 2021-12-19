@@ -1,6 +1,6 @@
 <mat-card class="entity-card" *ngIf="selectedProject$ | async as project">
   <mat-card-header>
-    <img *ngIf="project.image" mat-card-avatar [src]="projectsHelpersService.getProjectImage(project)" alt="">
+    <img *ngIf="project.image" mat-card-avatar [src]="projectsHelpersService.getProjectImage(project) | withAuth | async" alt="">
     <svg *ngIf="!project.image" mat-card-avatar [data-jdenticon-value]="project._id"></svg>
     <mat-card-title class="pm-breadcrumb">
       {{project.title}}

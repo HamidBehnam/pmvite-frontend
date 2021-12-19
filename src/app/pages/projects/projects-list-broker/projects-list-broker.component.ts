@@ -47,15 +47,15 @@ export class ProjectsListBrokerComponent implements OnInit, OnDestroy {
         }).subscribe(_ => {
           this.paginationMeta = {
             length: this.projectsQuery.getValue().totalCount,
-            pageSize: params.limit || this.listMetaService.defaultPageSize,
-            pageIndex: params.page ? params.page - 1 : this.listMetaService.defaultPageIndex,
+            pageSize: params['limit'] || this.listMetaService.defaultPageSize,
+            pageIndex: params['page'] ? params['page'] - 1 : this.listMetaService.defaultPageIndex,
             pageSizeOptions: this.listMetaService.defaultPageSizeOptions
           };
         });
 
         this.filterAndSortSelection = {
-          stat: params.stat || [],
-          sort: params.sort || this.listMetaService.defaultSort
+          stat: params['stat'] || [],
+          sort: params['sort'] || this.listMetaService.defaultSort
         };
       });
 

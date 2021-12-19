@@ -41,7 +41,7 @@ export class ProfileDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const changedProfile: SimpleChange = changes.profile;
+    const changedProfile: SimpleChange = changes['profile'];
 
     if (changedProfile) {
       /*

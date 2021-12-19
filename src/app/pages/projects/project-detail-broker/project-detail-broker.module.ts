@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProjectGeneralModule } from '../../../shared/components/project-general/project-general.module';
 import { NgxJdenticonModule } from 'ngx-jdenticon';
 import { ScrollableTabsDialogModule } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.module';
+import { WithAuthModule } from '../../../shared/pipes/with-auth/with-auth.module';
 
 
 
@@ -47,7 +48,8 @@ import { ScrollableTabsDialogModule } from '../../../shared/components/scrollabl
     AttachmentFocusModule,
     ProjectSettingsListModule,
     NgxJdenticonModule,
-    ScrollableTabsDialogModule
+    ScrollableTabsDialogModule,
+    WithAuthModule
   ]
 })
 export class ProjectDetailBrokerModule { }

@@ -53,7 +53,7 @@
               <div *ngIf="editingFieldName !== 'description'"
                    class="description-field-content edit-indicator"
                    (click)="setEditingField('description')">
-                <quill-view [content]="profileFormGroup.controls.description.value" format="html" theme="snow"></quill-view>
+                <quill-view [content]="profileFormGroup.controls['description'].value" format="html" theme="snow"></quill-view>
               </div>
               <ng-container *ngIf="editingFieldName === 'description'">
                 <quill-editor class="quill-container"

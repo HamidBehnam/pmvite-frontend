@@ -42,7 +42,7 @@ export class ProjectsFilterSortComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const changedFilterAndSortSelection = changes.filterAndSortSelection;
+    const changedFilterAndSortSelection = changes['filterAndSortSelection'];
 
     if (changedFilterAndSortSelection) {
       /*

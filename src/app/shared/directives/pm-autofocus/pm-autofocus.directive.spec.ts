@@ -1,6 +1,14 @@
 import { PmAutofocusDirective } from './pm-autofocus.directive';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PmAutofocusTestComponent } from './pm-autofocus-test/pm-autofocus-test.component';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-pm-autofocus-test',
+  template: `
+    <input type="text" app-pm-autofocus>
+  `
+})
+class PmAutofocusTestComponent {}
 
 describe('PmAutofocusDirective', () => {
   let component: PmAutofocusTestComponent;

@@ -10,6 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HelpDialogModule } from '../help-dialog/help-dialog.module';
 import { AboutDialogModule } from '../about-dialog/about-dialog.module';
+import { WithAuthModule } from '../../pipes/with-auth/with-auth.module';
 
 
 
@@ -30,7 +31,8 @@ import { AboutDialogModule } from '../about-dialog/about-dialog.module';
       MatProgressBarModule,
       MatDialogModule,
       HelpDialogModule,
-      AboutDialogModule
+      AboutDialogModule,
+      WithAuthModule
     ]
 })
 export class NavBarModule { }

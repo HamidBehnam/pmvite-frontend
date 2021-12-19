@@ -31,7 +31,7 @@
         <mat-panel-title class="mr-0">
           <div class="entity-avatar-title">
             <div class="avatar">
-              <img [src]="profilesHelpersService.getProfileImage(profile)" alt="">
+              <img [src]="profilesHelpersService.getProfileImage(profile) | withAuth | async" alt="">
             </div>
             <div>{{profile.firstName}} {{profile.lastName}}</div>
           </div>

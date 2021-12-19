@@ -31,7 +31,7 @@
         <mat-panel-title class="mr-0">
           <div class="entity-avatar-title">
             <div class="avatar">
-              <img *ngIf="project.image" [src]="projectsHelpersService.getProjectImage(project)" alt="">
+              <img *ngIf="project.image" [src]="projectsHelpersService.getProjectImage(project) | withAuth | async" alt="">
               <svg *ngIf="!project.image" [data-jdenticon-value]="project._id"></svg>
             </div>
             <div>{{project.title}}</div>
