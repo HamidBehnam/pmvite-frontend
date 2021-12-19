@@ -27,7 +27,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/hamidev-angular-src'),
+      dir: require('path').join(__dirname, './coverage/hamidev-angular-2395-src'),
       subdir: '.',
       reporters: [
         { type: 'html' },

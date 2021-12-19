@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProfilesFilterSortModule } from '../profiles-filter-sort/profiles-filter-sort.module';
+import { WithAuthModule } from '../../pipes/with-auth/with-auth.module';
 
 
 
@@ -30,7 +31,8 @@ import { ProfilesFilterSortModule } from '../profiles-filter-sort/profiles-filte
     MatBadgeModule,
     MatPaginatorModule,
     RouterModule,
-    ProfilesFilterSortModule
+    ProfilesFilterSortModule,
+    WithAuthModule
   ]
 })
 export class ProfilesListModule { }

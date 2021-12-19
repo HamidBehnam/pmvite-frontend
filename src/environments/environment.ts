@@ -5,7 +5,7 @@
 import { AuthConfig } from '@auth0/auth0-angular';
 import { helpers } from '../helpers';
 
-const apiUrl = 'http://localhost:8324/api/v1';
+const apiUrl = 'http://localhost:8326/api/v1';
 const appInfoUrl = 'assets/app-info.json';
 
 const authConfig: AuthConfig = {

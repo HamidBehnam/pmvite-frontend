@@ -6,6 +6,7 @@ import { FileSpecification } from '../../types/file-specification.model';
 import { getProjectAttachmentSpecification } from '../../types/project.model';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { FileDownloadMeta } from '../../types/file-download-meta';
 
 @Component({
   selector: 'app-attachments-list',
@@ -25,6 +26,7 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
   @Output() focusViewRequested: EventEmitter<FileReference>;
   @Output() deleteRequested: EventEmitter<string>;
   @Output() attachmentSelectedForUpload: EventEmitter<File>;
+  @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
   @ViewChild('attachmentCreationPanel') attachmentCreationPanel?: MatExpansionPanel;
   projectAttachmentSpecification: FileSpecification;
   attachmentCreationPanelOpeningSubscription?: Subscription;
@@ -41,6 +43,7 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
     this.closeAttachmentCreationPanel = new Subject<void>();
     this.attachmentCreationPanelOpened = new EventEmitter<void>();
     this.attachmentCreationPanelClosed = new EventEmitter<void>();
+    this.downloadRequested = new EventEmitter<FileDownloadMeta>();
     this.attachmentCreationPanelOpeningSignal = new Subject();
   }
 
@@ -58,6 +61,10 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
 
   saveAttachment(formInteractionResult: FormInteractionResult<AttachmentForm>): void {
     this.saveRequested.emit(formInteractionResult);
+  }
+
+  downloadAttachment(fileDownloadMeta: FileDownloadMeta): void {
+    this.downloadRequested.emit(fileDownloadMeta);
   }
 
   openInFocusView(attachment: FileReference): void {

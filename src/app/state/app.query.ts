@@ -9,7 +9,7 @@ export class AppQuery extends Query<AppState> {
   selectUserProfile$ = this.select('userProfile');
   selectUserHasProfile$ = this.select('userHasProfile');
 
-  constructor(protected store: AppStore) {
+  constructor(protected override store: AppStore) {
     super(store);
   }
 

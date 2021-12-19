@@ -21,7 +21,8 @@
 
       <app-attachment-detail [attachment]="attachment"
                              [canEdit]="canEdit"
-                             (saveRequested)="saveAttachment($event)">
+                             (saveRequested)="saveAttachment($event)"
+                             (downloadRequested)="downloadAttachment($event)">
       </app-attachment-detail>
 
     </mat-expansion-panel>

@@ -20,10 +20,12 @@
           <ng-container *ngIf="appQuery.selectUserProfile$ | async as userProfile else noProfile">
             <button mat-button [matMenuTriggerFor]="menu" class="avatar">
               <mat-icon>more_vert</mat-icon>
-                <img [src]="profilesHelpersService.getProfileImage(userProfile)"
+                <img *ngIf="{imageUrl: profilesHelpersService.getProfileImage(userProfile) | withAuth | async} as context"
+                     [src]="context.imageUrl"
+                     [class.image-loading]="!context.imageUrl"
                      [class.image-loaded]="profileImageLoaded"
-                     (load)="setProfileImageLoadStatus()" alt="">
-
+                     (load)="setProfileImageLoadStatus()"
+                     alt="">
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="goToMyProfilePage(userProfile)">

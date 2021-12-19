@@ -54,7 +54,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     this.memberRoleItems = getProjectMemberRoleItems(false);
 
     this.profiles = merge(
-      this.memberFormGroup.controls.profile.valueChanges,
+      this.memberFormGroup.controls['profile'].valueChanges,
       this.autocompleteListLoaderSignalInternal,
       this.autocompleteListLoaderSignalExternal
     )
@@ -96,13 +96,13 @@ export class MemberFormComponent implements OnInit, OnDestroy {
     if (this.selectedProfile?.userId === this.project?.createdBy) {
       this.selectedProfileIsCreator = true;
       this.memberRoleItems = getProjectMemberRoleItems(true);
-      this.memberFormGroup.controls.role.setValue(ProjectMemberRole.Creator);
-      this.memberFormGroup.controls.role.disable();
+      this.memberFormGroup.controls['role'].setValue(ProjectMemberRole.Creator);
+      this.memberFormGroup.controls['role'].disable();
     } else if (this.selectedProfileIsCreator) {
       this.selectedProfileIsCreator = false;
       this.memberRoleItems = getProjectMemberRoleItems(false);
-      this.memberFormGroup.controls.role.reset();
-      this.memberFormGroup.controls.role.enable();
+      this.memberFormGroup.controls['role'].reset();
+      this.memberFormGroup.controls['role'].enable();
     }
   }
 
@@ -112,7 +112,7 @@ export class MemberFormComponent implements OnInit, OnDestroy {
 
   submitForm(): void {
     if (this.memberFormGroup.valid) {
-      if (this.memberFormGroup.controls.profile.value !== this.selectedProfileId) {
+      if (this.memberFormGroup.controls['profile'].value !== this.selectedProfileId) {
         this.matSnackBar.open('To add the member please search and select one of the found users.', 'OK', {duration: 5000});
         return;
       }

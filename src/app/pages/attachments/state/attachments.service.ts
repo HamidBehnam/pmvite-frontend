@@ -150,6 +150,12 @@ export class AttachmentsService {
       );
   }
 
+  downloadAttachment(fileUrl: string): Observable<Blob> {
+    return this.http.get(fileUrl, {
+      responseType: 'blob'
+    });
+  }
+
 
   // add(attachment: Attachment) {
   //   this.attachmentsStore.add(attachment);

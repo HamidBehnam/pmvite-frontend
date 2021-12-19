@@ -1,6 +1,11 @@
 <mat-card class="entity-card" *ngIf="selectedProject$ | async as project">
   <mat-card-header>
-    <img *ngIf="project.image" mat-card-avatar [src]="projectsHelpersService.getProjectImage(project)" alt="">
+    <img *ngIf="project.image &&
+         {imageUrl: projectsHelpersService.getProjectImage(project) | withAuth | async} as context"
+         [src]="context.imageUrl"
+         [class.image-loading]="!context.imageUrl"
+         mat-card-avatar
+         alt="">
     <svg *ngIf="!project.image" mat-card-avatar [data-jdenticon-value]="project._id"></svg>
     <mat-card-title class="pm-breadcrumb">
       {{project.title}}
@@ -92,6 +97,7 @@
                                     [attachmentDirectLink]="getAttachmentDirectLink(project, selectedAttachment)"
                                     [canEdit]="isViewerAtLeastDeveloper(project)"
                                     (saveRequested)="saveAttachment($event)"
+                                    (downloadRequested)="downloadAttachment($event)"
                                     (projectAttachmentsListRequested)="showProjectAttachmentsList()">
               </app-attachment-focus>
             </ng-container>
@@ -104,6 +110,7 @@
                                     [closeAttachmentCreationPanel]="closeAttachmentCreationPanel$"
                                     [attachmentCreationPanelOpeningSignal]="attachmentCreationPanelOpeningSignal"
                                     (saveRequested)="saveAttachment($event)"
+                                    (downloadRequested)="downloadAttachment($event)"
                                     (focusViewRequested)="openAttachmentInFocusView($event)"
                                     (deleteRequested)="deleteAttachment($event)"
                                     (attachmentCreationPanelOpened)

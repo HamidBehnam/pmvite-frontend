@@ -7,7 +7,7 @@ export class AttachmentsQuery extends QueryEntity<AttachmentsState> {
 
   selectSelectedAttachment$ = this.select('selectedAttachment');
 
-  constructor(protected store: AttachmentsStore) {
+  constructor(protected override store: AttachmentsStore) {
     super(store);
   }
 

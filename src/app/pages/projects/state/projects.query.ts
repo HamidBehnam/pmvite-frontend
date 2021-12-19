@@ -8,7 +8,7 @@ export class ProjectsQuery extends QueryEntity<ProjectsState> {
   selectSelectedProject$ = this.select('selectedProject');
   selectTotalCount$ = this.select('totalCount');
 
-  constructor(protected store: ProjectsStore) {
+  constructor(protected override store: ProjectsStore) {
     super(store);
   }
 

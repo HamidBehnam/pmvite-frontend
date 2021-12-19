@@ -8,7 +8,7 @@ export class ProfilesQuery extends QueryEntity<ProfilesState> {
   selectSelectedProfile$ = this.select('selectedProfile');
   selectTotalCount$ = this.select('totalCount');
 
-  constructor(protected store: ProfilesStore) {
+  constructor(protected override store: ProfilesStore) {
     super(store);
   }
 

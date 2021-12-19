@@ -54,7 +54,11 @@
           <div class="field-label mat-body-2">File</div>
           <div class="field-content-wrapper">
             <div class="field-content">
-              <a mat-stroked-button color="primary" [href]="getAttachmentUrl()" target="_blank">View Attachment</a>
+              <button mat-stroked-button
+                      color="primary"
+                      (click)="downloadAttachment(getAttachmentUrl(), attachment.filename)">
+                Download Attachment
+              </button>
             </div>
           </div>
         </div>
