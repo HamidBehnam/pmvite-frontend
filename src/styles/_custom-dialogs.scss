@@ -1,0 +1,19 @@
+@import "mixins";
+
+.confirmation-dialog-panel {
+  width: 400px;
+}
+
+.terms-and-conditions-dialog-panel,
+.help-dialog-panel,
+.about-dialog-panel,
+.scrollable-tabs-dialog-panel,
+.profile-creation-tip-dialog-panel {
+
+  width: 600px;
+
+  @include pm-breakpoint-only(sm) {
+    width: 100%;
+    max-width: 100vw !important;
+  }
+}

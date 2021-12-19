@@ -1,0 +1,38 @@
+<form [formGroup]="memberFormGroup" #memberFormRef="ngForm" (ngSubmit)="submitForm()" class="pm-form solid-form">
+  <div class="partial-width">
+    <div class="field-container">
+      <div class="field-label mat-body-2">Member</div>
+      <div class="field-content-wrapper">
+        <mat-form-field appearance="fill" class="form-field-pointer">
+          <mat-label>Member</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 required
+                 formControlName="profile"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="profilesAutocompleteDisplay" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let profile of profiles | async" [value]="profile._id" (onSelectionChange)="onSelectionChange(profile, $event)">
+              {{profile.fullName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="field-container">
+      <div class="field-label mat-body-2">Role</div>
+      <div class="field-content-wrapper">
+        <mat-form-field appearance="fill" class="form-field-pointer">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role" required>
+            <mat-option *ngFor="let memberRoleItem of memberRoleItems" [value]="memberRoleItem.role">
+              {{memberRoleItem.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

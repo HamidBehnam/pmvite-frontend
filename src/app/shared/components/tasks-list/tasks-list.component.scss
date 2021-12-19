@@ -1,0 +1,19 @@
+.tasks-list-container {
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+
+  .mat-expansion-panel-header-title {
+    justify-content: space-between;
+  }
+
+  .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tasks-divider {
+    margin: 24px 0;
+  }
+}

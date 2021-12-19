@@ -1,0 +1,5 @@
+<input type="file" class="file-input"
+       [accept]="acceptedFileTypes"
+       (change)="onFileSelected($event)" #fileSelectorElement>
+
+<ng-content></ng-content>

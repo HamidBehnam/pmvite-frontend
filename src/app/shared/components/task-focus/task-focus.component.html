@@ -1,0 +1,30 @@
+<div *ngIf="task" class="task-focus-view-container pl-8 pr-8 pt-24 pl-sm-0 pr-sm-0">
+  <mat-accordion>
+    <mat-expansion-panel [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Task
+        </mat-panel-title>
+        <mat-panel-description>
+          Focus view
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="pm-breadcrumb pm-focus-breadcrumb mb-24">
+        <button mat-stroked-button color="primary" (click)="showProjectTasks()">Project Tasks</button>
+        <mat-icon class="d-sm-none">keyboard_arrow_right</mat-icon>
+        <span class="d-sm-none">{{task.title}}</span>
+        <div class="breadcrumb-divider d-sm-none"></div>
+        <app-content-copier [content]="taskDirectLink" label="Copy link"></app-content-copier>
+      </div>
+
+      <app-task-detail [task]="task"
+                       [members]="members"
+                       [canEdit]="canEdit"
+                       (saveRequested)="saveTask($event)">
+      </app-task-detail>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

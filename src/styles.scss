@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "custom-dialogs";
+@import "spacing";
+@import "visibility";
+/* custom-expansion is imported here because .mat-expansion-indicator color can't be changed in components level */
+@import "custom-expansions";
+@import "badge";
+@import "custom-menu";
+@import "entities-list-dynamic";
+@import "entity-card-dynamic";
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

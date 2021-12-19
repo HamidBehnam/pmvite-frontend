@@ -1,0 +1,7 @@
+<app-projects-list *ngIf="projects$ | async as projects"
+                   [projects]="projects"
+                   [paginationMeta]="paginationMeta"
+                   [filterAndSortSelection]="filterAndSortSelection"
+                   (paginationChanged)="paginationChangeHandler($event)"
+                   (filterAndSortChanged)="filterAndSortChangeHandler($event)">
+</app-projects-list>

@@ -1,0 +1,16 @@
+.user-settings-list-container {
+  .mat-expansion-panel-header-title {
+    flex-basis: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .upload-button-container {
+    display: flex;
+    align-items: center;
+
+    .button-spinner {
+      margin-right: 5px;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<app-profiles-list [profiles$]="profiles$"
+                   [paginationMeta]="paginationMeta"
+                   [filterAndSortSelection]="filterAndSortSelection"
+                   (paginationChanged)="paginationChangeHandler($event)"
+                   (filterAndSortChanged)="filterAndSortChangeHandler($event)">
+</app-profiles-list>

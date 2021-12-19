@@ -1,0 +1,17 @@
+.agreement-container {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  .agreement-icon {
+    min-width: 40px;
+  }
+
+  .agreement-content {
+    line-height: 24px;
+  }
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+}

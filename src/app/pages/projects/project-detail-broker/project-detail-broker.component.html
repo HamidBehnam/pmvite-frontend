@@ -1,0 +1,129 @@
+<mat-card class="entity-card" *ngIf="selectedProject$ | async as project">
+  <mat-card-header>
+    <img *ngIf="project.image" mat-card-avatar [src]="projectsHelpersService.getProjectImage(project)" alt="">
+    <svg *ngIf="!project.image" mat-card-avatar [data-jdenticon-value]="project._id"></svg>
+    <mat-card-title class="pm-breadcrumb">
+      {{project.title}}
+      <div class="pm-breadcrumb-tail-container d-sm-none">
+        <ng-container *ngFor="let breadcrumbSection of breadcrumbSections">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+          <span>{{breadcrumbSection}}</span>
+        </ng-container>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>{{project.objectives}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group [selectedIndex]="pageSection" (selectedIndexChange)="updateUrl($event)">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span>General</span>
+        </ng-template>
+        <app-project-general [project]="project"
+                             [projectIsEditable]="isViewerAtLeastAdmin(project)"
+                             (saveRequested)="saveGeneral(project, $event)">
+        </app-project-general>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="project.members.length || ''" matBadgeOverlap="false">Members</span>
+        </ng-template>
+        <ng-container *ngIf="members$ | async as members">
+          <ng-container *ngIf="authService.user$ | async as user">
+            <app-members-list [members]="members"
+                              [project]="project"
+                              [isEditable]="isViewerAtLeastAdmin(project)"
+                              [memberAutocompleteLoaderSignal]="memberAutocompleteLoaderSignal"
+                              [memberCreationPanelOpeningSignal]="memberCreationPanelOpeningSignal"
+                              [loggedInUserId]="user.sub"
+                              (saveRequested)="saveMember($event)"
+                              (deleteRequested)="deleteMember($event)"
+                              (memberCreationPanelOpened)="onCreationPanelOpened(panelQueryParam.MemberCreationPanel)"
+                              (memberCreationPanelClosed)="onCreationPanelClosed(panelQueryParam.MemberCreationPanel)"
+                              (memberCreationRequested)="createMember($event)">
+            </app-members-list>
+          </ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="project.tasks.length || ''" matBadgeOverlap="false">Tasks</span>
+        </ng-template>
+        <ng-container [ngSwitch]="tasksViewMode" *ngIf="members$ | async as members">
+          <ng-container *ngSwitchCase="viewMode.FocusView">
+            <ng-container *ngIf="selectedTask$ | async as selectedTask">
+              <app-task-focus [task]="selectedTask"
+                              [members]="members"
+                              [taskDirectLink]="getTaskDirectLink(project, selectedTask)"
+                              [canEdit]="isViewerAtLeastContributor(project)"
+                              (saveRequested)="saveTask($event)"
+                              (projectTasksListRequested)="showProjectTasksList()">
+              </app-task-focus>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngIf="tasks$ | async as tasks">
+              <app-tasks-list [tasks]="tasks"
+                              [members]="members"
+                              [project]="project"
+                              [canCreate]="isViewerAtLeastDeveloper(project)"
+                              [canDelete]="isViewerAtLeastDeveloper(project)"
+                              [canEdit]="isViewerAtLeastContributor(project)"
+                              [taskCreationPanelOpeningSignal]="taskCreationPanelOpeningSignal"
+                              (saveRequested)="saveTask($event)"
+                              (deleteRequested)="deleteTask($event)"
+                              (taskCreationRequested)="createTask($event)"
+                              (taskCreationPanelOpened)="onCreationPanelOpened(panelQueryParam.TaskCreationPanel)"
+                              (taskCreationPanelClosed)="onCreationPanelClosed(panelQueryParam.TaskCreationPanel)"
+                              (focusViewRequested)="openTaskInFocusView($event)">
+              </app-tasks-list>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="project.attachments.length || ''" matBadgeOverlap="false">Attachments</span>
+        </ng-template>
+        <ng-container [ngSwitch]="attachmentsViewMode">
+          <ng-container *ngSwitchCase="viewMode.FocusView">
+            <ng-container *ngIf="selectedAttachment$ | async as selectedAttachment">
+              <app-attachment-focus [attachment]="selectedAttachment"
+                                    [attachmentDirectLink]="getAttachmentDirectLink(project, selectedAttachment)"
+                                    [canEdit]="isViewerAtLeastDeveloper(project)"
+                                    (saveRequested)="saveAttachment($event)"
+                                    (projectAttachmentsListRequested)="showProjectAttachmentsList()">
+              </app-attachment-focus>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngIf="attachments$ | async as attachments">
+              <app-attachments-list [attachments]="attachments"
+                                    [canEdit]="isViewerAtLeastDeveloper(project)"
+                                    [uploadProgress$]="uploadProjectAttachmentProgress$"
+                                    [closeAttachmentCreationPanel]="closeAttachmentCreationPanel$"
+                                    [attachmentCreationPanelOpeningSignal]="attachmentCreationPanelOpeningSignal"
+                                    (saveRequested)="saveAttachment($event)"
+                                    (focusViewRequested)="openAttachmentInFocusView($event)"
+                                    (deleteRequested)="deleteAttachment($event)"
+                                    (attachmentCreationPanelOpened)
+                                      ="onCreationPanelOpened(panelQueryParam.AttachmentCreationPanel)"
+                                    (attachmentCreationPanelClosed)
+                                      ="onCreationPanelClosed(panelQueryParam.AttachmentCreationPanel)"
+                                    (attachmentSelectedForUpload)="onProjectAttachmentFileSelected(project, $event)">
+              </app-attachments-list>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="Settings" *ngIf="isViewerAtLeastAdmin(project)">
+        <app-project-settings-list [uploadProgress$]="uploadProjectImageProgress$"
+                                   [closeProjectImageUploadPanel$]="closeProjectImageUploadPanel$"
+                                   [canDeleteProject]="project.viewerIsCreator"
+                                   (projectImageSelectedForUpload)="onProjectImageFileSelected(project, $event)"
+                                   (projectDeletionRequested)="deleteProject()">
+        </app-project-settings-list>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

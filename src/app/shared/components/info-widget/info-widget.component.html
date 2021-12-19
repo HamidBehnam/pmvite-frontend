@@ -1,0 +1,3 @@
+<ng-container *ngIf="appQuery.selectAppInfo$ | async as appInfo">
+  <small>App v{{appInfo.version}}</small>
+</ng-container>

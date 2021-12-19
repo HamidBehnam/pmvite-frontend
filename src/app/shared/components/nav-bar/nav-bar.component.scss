@@ -1,0 +1,56 @@
+@import "mixins";
+
+.app-toolbar {
+  .toolbar-row-main {
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+
+    .secondary-navbar-toggle {
+      padding: 0;
+      width: 50px;
+      min-width: 50px;
+      display: none;
+    }
+
+    &.is-authenticated {
+      @include pm-breakpoint-only(sm) {
+        padding-left: 0;
+
+        .secondary-navbar-toggle {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .avatar {
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 5px double #fff;
+      object-fit: cover;
+      display: none;
+
+      &.image-loaded {
+        display: unset;
+      }
+    }
+  }
+
+  .loading-progress-bar {
+    position: absolute;
+  }
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.logo-container {
+  .logo {
+    img {
+      height: 35px;
+      display: block;
+    }
+  }
+}

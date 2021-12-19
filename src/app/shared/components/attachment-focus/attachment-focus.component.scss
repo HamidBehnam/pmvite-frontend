@@ -1,0 +1,14 @@
+@import "pm-breadcrumb";
+
+.attachment-focus-view-container {
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+
+  .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+

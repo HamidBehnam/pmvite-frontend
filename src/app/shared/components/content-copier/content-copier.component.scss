@@ -1,0 +1,10 @@
+@import "mixins";
+
+.copier-label {
+  color: #9f9f9f;
+  font-weight: bold;
+
+  @include pm-breakpoint-up(md) {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,21 @@
+@import "variables";
+
+.tip-card {
+  background-color: $page-bg;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: $tip-card-icon-color;
+
+  .tip-content-container {
+    display: flex;
+    align-items: center;
+
+    .tip-icon {
+      flex-basis: 40px;
+    }
+
+    .tip-message {
+      flex: 1;
+    }
+  }
+}

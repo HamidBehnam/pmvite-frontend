@@ -1,0 +1,184 @@
+<div *ngIf="projects" class="entities-list-container pl-24 pr-24 pl-sm-16 pr-sm-16">
+  <div class="entities-list-header px-24">
+    <div class="header-title mat-display-1 mb-0">Projects</div>
+    <div class="header-sub-title mat-subheading-1 d-sm-none mb-0">Collaboration opportunities</div>
+    <app-projects-filter-sort [filterAndSortSelection]="filterAndSortSelection"
+                              (filterAndSortChanged)="filterAndSortChangeEmitter($event)"
+                              class="d-xl-none d-lg-none d-md-none">
+    </app-projects-filter-sort>
+  </div>
+
+  <div class="list-settings-bar pl-24 pl-sm-0 pr-0 mb-16 mb-sm-0">
+    <mat-paginator *ngIf="paginationMeta"
+                   [length]="paginationMeta.length"
+                   [pageSize]="paginationMeta.pageSize"
+                   [pageSizeOptions]="paginationMeta.pageSizeOptions"
+                   [pageIndex]="paginationMeta.pageIndex"
+                   (page)="paginationChangeEmitter($event)"
+                   class="paginator-bar"
+                   aria-label="Select page">
+    </mat-paginator>
+
+    <app-projects-filter-sort [filterAndSortSelection]="filterAndSortSelection"
+                              (filterAndSortChanged)="filterAndSortChangeEmitter($event)"
+                              class="d-sm-none">
+    </app-projects-filter-sort>
+  </div>
+
+  <mat-accordion [multi]="true" class="no-highlight">
+    <mat-expansion-panel *ngFor="let project of projects" [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header class="no-extension-margin">
+        <mat-panel-title class="mr-0">
+          <div class="entity-avatar-title">
+            <div class="avatar">
+              <img *ngIf="project.image" [src]="projectsHelpersService.getProjectImage(project)" alt="">
+              <svg *ngIf="!project.image" [data-jdenticon-value]="project._id"></svg>
+            </div>
+            <div>{{project.title}}</div>
+          </div>
+          <mat-icon class="expansion-panel-title-meta">corporate_fare</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="entity-menu-buttons mb-8">
+        <div *ngIf="project.membersQueried.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="membersQueriedMenu">
+            <span class="entity-button-label">Members</span>
+            <mat-icon [matBadge]="project.membersQueried.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #membersQueriedMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let member of project.membersQueried"
+               [routerLink]="['/profiles', member.profile._id]">
+              {{member.profile.firstName}} {{member.profile.lastName}}
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="project.activeTasks.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="activeTasksMenu">
+            <span class="entity-button-label">Active tasks</span>
+            <mat-icon [matBadge]="project.activeTasks.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #activeTasksMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let task of project.activeTasks"
+               [routerLink]="['/projects', project._id]"
+               [queryParams]="{section: 2, task: task._id}">
+              {{task.title}}
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="project.acceptedTasks.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="acceptedTasksMenu">
+            <span class="entity-button-label">Accepted Tasks</span>
+            <mat-icon [matBadge]="project.acceptedTasks.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #acceptedTasksMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let task of project.acceptedTasks"
+               [routerLink]="['/projects', project._id]"
+               [queryParams]="{section: 2, task: task._id}">
+              {{task.title}}
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="project.availableTasks.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="availableTasksMenu">
+            <span class="entity-button-label">Available tasks</span>
+            <mat-icon [matBadge]="project.availableTasks.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #availableTasksMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let task of project.availableTasks"
+               [routerLink]="['/projects', project._id]"
+               [queryParams]="{section: 2, task: task._id}">
+              {{task.title}}
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="project.attachmentsQueried.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="attachmentsQueriedMenu">
+            <span class="entity-button-label">Attachments</span>
+            <mat-icon [matBadge]="project.attachmentsQueried.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #attachmentsQueriedMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let attachment of project.attachmentsQueried"
+               [routerLink]="['/projects', project._id]"
+               [queryParams]="{section: 3, attachment: attachment._id}">
+              {{attachment.filename}}
+            </a>
+          </mat-menu>
+        </div>
+      </div>
+
+      <mat-action-row class="d-sm-none">
+        <a mat-button
+           color="primary"
+           [routerLink]="['/projects', project._id]">Details</a>
+        <a mat-button
+           color="primary"
+           [routerLink]="['/projects', project._id]"
+           [queryParams]="{section: 1}">Members</a>
+        <a mat-button
+           color="primary"
+           [routerLink]="['/projects', project._id]"
+           [queryParams]="{section: 2}">Tasks</a>
+        <a mat-button
+           color="primary"
+           [routerLink]="['/projects', project._id]"
+           [queryParams]="{section: 3}">Attachments</a>
+      </mat-action-row>
+
+      <mat-action-row class="d-md-none d-lg-none d-xl-none">
+        <button mat-flat-button color="primary"
+                [matMenuTriggerFor]="projectLinks">
+          Details
+          <mat-icon class="more-icon">unfold_more</mat-icon>
+        </button>
+        <mat-menu #projectLinks="matMenu">
+          <a mat-menu-item
+             [routerLink]="['/projects', project._id]">
+            General
+          </a>
+          <a mat-menu-item
+             [routerLink]="['/projects', project._id]"
+             [queryParams]="{section: 1}">
+            Members
+          </a>
+          <a mat-menu-item
+             [routerLink]="['/projects', project._id]"
+             [queryParams]="{section: 2}">
+            Tasks
+          </a>
+          <a mat-menu-item
+             [routerLink]="['/projects', project._id]"
+             [queryParams]="{section: 3}">
+            Attachments
+          </a>
+        </mat-menu>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

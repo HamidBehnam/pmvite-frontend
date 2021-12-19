@@ -1,0 +1,107 @@
+@import "variables";
+@import "mixins";
+
+.pm-form {
+  .field-container {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+
+    .field-label {
+      white-space: nowrap;
+      width: 170px;
+
+      @include pm-breakpoint-only(sm) {
+        width: 80px;
+      }
+    }
+
+    .field-content-wrapper {
+      flex: 1;
+      min-height: 51px;
+      overflow: hidden;
+
+      .form-field-pointer {
+        height: 51px;
+      }
+
+      &.description-field-content-wrapper {
+        height: auto;
+
+        .description-field-content {
+          background-color: $custom-form-description-field-bg;
+          border-radius: 3px;
+          min-height: 300px;
+        }
+      }
+
+      .edit-indicator {
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background-color 0.2s ease-in-out 0s;
+        background-color: $custom-form-description-field-bg;
+
+        &:hover {
+          background-color: $custom-form-editable-field-hover-bg;
+        }
+      }
+
+      &.link-button-field-wrapper {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .partial-width {
+    width: 100%;
+    max-width: 562px;
+  }
+
+  .full-width {
+    .field-container {
+      display: block;
+    }
+  }
+
+  &.solid-form {
+    .field-container {
+      margin-bottom: 5px;
+    }
+
+    .form-field-pointer {
+      width: 100%;
+    }
+  }
+
+  &.hybrid-form {
+    .field-content {
+      display: flex;
+      align-items: center;
+      height: 51px;
+      padding-left: 10.5px;
+    }
+
+    .form-field-pointer {
+      width: 310px;
+
+      @include pm-breakpoint-only(sm) {
+        width: calc(100% - 80px);
+      }
+    }
+  }
+
+  .inline-action-container {
+    white-space: nowrap;
+
+    .field-action-button {
+      height: 35px;
+    }
+  }
+}
+
+.bordered-module {
+  border: 1px solid $custom-form-module-border;
+  border-radius: 3px;
+  box-shadow: 4px 4px 7px 0 $custom-form-module-shadow;
+}

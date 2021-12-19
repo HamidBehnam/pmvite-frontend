@@ -1,0 +1,72 @@
+@import "variables";
+
+.entities-list-container {
+  .mat-expansion-panel-header-title {
+    align-items: center;
+  }
+
+  .entity-avatar-title {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-weight: bold;
+  }
+
+  .entities-list-header {
+    border-radius: 4px;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    background-color: $page-bg;
+    box-shadow: 1px 2px 3px #afafaf;
+
+    .header-title {
+      flex: 1;
+      font-weight: bold;
+    }
+
+    .header-sub-title {
+      color: #c3c3c3;
+    }
+  }
+
+  .avatar {
+    display: flex;
+    flex-basis: 50px;
+
+    img, svg {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .entity-menu-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    .mat-button-base {
+      border-radius: 0;
+      width: 160px;
+
+      &:not(:last-of-type) {
+        //border-right: 0;
+      }
+
+      .more-icon {
+        color: #dbdbdb;
+      }
+    }
+  }
+
+  .list-settings-bar {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    .paginator-bar {
+      flex: 1;
+    }
+  }
+}

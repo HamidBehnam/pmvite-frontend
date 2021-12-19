@@ -1,0 +1,110 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <mat-toolbar-row class="toolbar-row-main" [class.is-authenticated]="authService.isAuthenticated$ | async">
+    <button mat-button
+            aria-label="Secondary navbar menu icon"
+            class="secondary-navbar-toggle"
+            (click)="uiService.toggleSecondaryNav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="logo-container">
+      <div class="logo">
+        <img src="assets/images/color-based/white/pm-logo.svg" alt="" class="d-sm-none">
+        <img src="assets/images/color-based/white/pm-logo-icon.svg" alt="" class="d-xl-none d-lg-none d-md-none">
+      </div>
+    </div>
+    <span class="toolbar-spacer"></span>
+
+    <ng-container *ngIf="(authService.isLoading$ | async) === false">
+      <ng-container *ngIf="authService.isAuthenticated$ | async; else loggedOutTemplate">
+        <ng-container *ngIf="(appQuery.selectLoading() | async) === false">
+          <ng-container *ngIf="appQuery.selectUserProfile$ | async as userProfile else noProfile">
+            <button mat-button [matMenuTriggerFor]="menu" class="avatar">
+              <mat-icon>more_vert</mat-icon>
+                <img [src]="profilesHelpersService.getProfileImage(userProfile)"
+                     [class.image-loaded]="profileImageLoaded"
+                     (load)="setProfileImageLoadStatus()" alt="">
+
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="goToMyProfilePage(userProfile)">
+                <span>My Profile</span>
+              </button>
+              <button mat-menu-item (click)="goToMyProjectsPage(userProfile)">
+                <span>My Projects</span>
+              </button>
+              <button mat-menu-item (click)="goToMyTasksPage(userProfile)">
+                <span>My Tasks</span>
+              </button>
+              <button mat-menu-item (click)="goToMyProjectsPageCreationPanel(userProfile)">
+                <span>Create Project</span>
+              </button>
+              <button mat-menu-item (click)="goToMyProfileSettings(userProfile)">
+                <span>Settings</span>
+              </button>
+              <button mat-menu-item (click)="showHelpDialog()">
+                <span>Help</span>
+              </button>
+              <button mat-menu-item (click)="showAboutDialog()">
+                <span>About</span>
+              </button>
+              <button mat-menu-item (click)="logout()">
+                <span>Logout</span>
+              </button>
+            </mat-menu>
+          </ng-container>
+          <ng-template #noProfile>
+            <ng-container *ngIf="authService.user$ | async as user">
+              <button mat-button [matMenuTriggerFor]="menu" class="avatar">
+                <mat-icon>more_vert</mat-icon>
+                <img [src]="user.picture"
+                     [class.image-loaded]="profileImageLoaded"
+                     (load)="setProfileImageLoadStatus()" alt="">
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="goToProfileCreationPage()">
+                  <span>Create Profile</span>
+                </button>
+                <button mat-menu-item (click)="showHelpDialog()">
+                  <span>Help</span>
+                </button>
+                <button mat-menu-item (click)="showAboutDialog()">
+                  <span>About</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                  <span>Logout</span>
+                </button>
+              </mat-menu>
+            </ng-container>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+
+    </ng-container>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="authService.isAuthenticated$ | async"
+                   class="d-sm-none">
+    <button mat-button routerLink="/profiles">People</button>
+    <button mat-button routerLink="/projects">Projects</button>
+    <span class="toolbar-spacer"></span>
+    <ng-container *ngIf="appQuery.selectUserProfile$ | async as userProfile else noProfileAction">
+      <button mat-flat-button (click)="goToMyProjectsPageCreationPanel(userProfile)">Add Project</button>
+    </ng-container>
+    <ng-template #noProfileAction>
+      <button mat-flat-button (click)="goToProfileCreationPage()">Create Profile</button>
+    </ng-template>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="(authService.isAuthenticated$ | async) && (uiService.secondaryNavIsVisible | async)"
+                   class="d-xl-none d-lg-none d-md-none">
+    <button mat-button routerLink="/profiles">People</button>
+    <button mat-button routerLink="/projects">Projects</button>
+  </mat-toolbar-row>
+  <mat-progress-bar *ngIf="loadingService.isLoading$ | async"
+                    mode="indeterminate"
+                    class="loading-progress-bar">
+  </mat-progress-bar>
+</mat-toolbar>
+
+<ng-template #loggedOutTemplate>
+  <button mat-button (click)="login()">Sign in</button>
+  <button mat-raised-button (click)="signup()">Create an account</button>
+</ng-template>

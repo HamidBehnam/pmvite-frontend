@@ -1,0 +1,21 @@
+<div *ngIf="project" class="project-detail-container pl-8 pr-8 pt-24 pb-24 pl-sm-0 pr-sm-0">
+  <mat-accordion>
+    <mat-expansion-panel [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Project
+        </mat-panel-title>
+        <mat-panel-description>
+          General Information
+          <mat-icon>corporate_fare</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-project-detail [project]="project"
+                          [projectIsEditable]="projectIsEditable"
+                          (saveRequested)="saveProject($event)">
+      </app-project-detail>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

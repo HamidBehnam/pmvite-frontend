@@ -1,0 +1,65 @@
+<div class="members-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="isEditable"
+                         (opened)="onMemberCreationPanelOpened()"
+                         (closed)="onMemberCreationPanelClosed()"
+                         #memberCreationPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Member
+          <mat-icon class="expansion-panel-title-meta">account_circle</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-member-form [project]="project"
+                                 [autocompleteListLoaderSignalExternal]="memberAutocompleteLoaderSignal"
+                                 [formResetSignal]="memberFormResetSignal"
+                                 (createMember)="createMember($event)" #memberFormComponent>
+      </app-member-form>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="memberFormComponent.triggerFormSubmission()">Add Member</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+    <mat-divider class="members-divider" [inset]="true" *ngIf="members?.length && isEditable"></mat-divider>
+
+    <mat-expansion-panel class="list-headers-align"
+                         *ngFor="let member of members"
+                         (opened)="onMemberDetailPanelOpened(member)"
+                         (closed)="onMemberDetailPanelClosed(member)"
+                         [expanded]="member._id === openMemberPanelId">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{member.profile?.firstName}} {{member.profile?.lastName}}
+          <div class="expansion-panel-title-meta d-xl-none d-lg-none d-md-none">
+            {{getProjectMemberRoleItem(member.role).title}}
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-sm-none">
+          {{getMemberPanelDescription(member)}}
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-member-detail [member]="member"
+                         [memberIsEditable]="isEditable"
+                         [loggedInUserId]="loggedInUserId"
+                         (saveRequested)="saveMember(member, $event)">
+      </app-member-detail>
+
+      <mat-action-row>
+        <a mat-button color="primary" [routerLink]="['/profiles', member.profile._id]">Member's profile</a>
+        <button mat-button color="warn"
+                *ngIf="isMemberRemovable(member)"
+                (click)="deleteMember(member)">Remove member</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!members?.length && !isEditable" class="mb-30">
+    <app-tip-card tipIcon="info">Project does not have any members.</app-tip-card>
+  </div>
+</div>

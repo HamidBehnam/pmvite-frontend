@@ -1,0 +1,109 @@
+<ng-container *ngIf="task">
+  <form [formGroup]="taskFormGroup" class="pm-form hybrid-form">
+    <div class="bordered-module px-10 pl-16 pr-16">
+      <div class="partial-width">
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Title</div>
+          <div *ngIf="editingFieldName !== fieldNames.title"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Title</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.title"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.title)">{{task.title}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.title">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Title</mat-label>
+                <input matInput app-pm-autofocus [formControlName]="fieldNames.title">
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.title}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Status</div>
+          <div *ngIf="editingFieldName !== fieldNames.status"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Status</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.status"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.status)">{{getProgressStatusItem(task.status).title}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.status">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Status</mat-label>
+                <mat-select app-pm-autofocus [formControlName]="fieldNames.status">
+                  <mat-option *ngFor="let statusItem of statusItems" [value]="statusItem.status">
+                    {{statusItem.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.status}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Assignee</div>
+          <div *ngIf="editingFieldName !== fieldNames.assignee"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Assignee</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.assignee"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.assignee)">{{getAssigneeName(task)}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.assignee">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Assignee</mat-label>
+                <mat-select app-pm-autofocus [formControlName]="fieldNames.assignee">
+                  <mat-option [value]="'Unassigned'">Unassigned</mat-option>
+                  <mat-option *ngFor="let member of members" [value]="member._id">
+                    {{member.profile?.fullName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.assignee}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-width mt-30">
+      <div class="field-container">
+        <div class="field-label mat-body-2 pl-16">Description</div>
+        <div class="field-content-wrapper description-field-content-wrapper">
+          <div *ngIf="editingFieldName !== fieldNames.description"
+               class="description-field-content"
+               [class.edit-indicator]="canEdit"
+               (click)="setEditingField(fieldNames.description)">
+            <quill-view [content]="task.description" format="html" theme="snow"></quill-view>
+          </div>
+          <ng-container *ngIf="editingFieldName === fieldNames.description">
+            <quill-editor class="quill-container"
+                          [formControlName]="fieldNames.description"
+                          bounds=".quill-container"
+                          [styles]="{'min-height': uiService.quillEditorMinHeight}">
+            </quill-editor>
+            <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.description}"></ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <span class="inline-action-container">
+    <button mat-icon-button type="button" (click)="saveField(fieldName)" class="field-action-button">
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-icon-button type="button" (click)="cancelEdit(fieldName)" class="field-action-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+</ng-template>

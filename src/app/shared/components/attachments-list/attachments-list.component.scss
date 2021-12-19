@@ -1,0 +1,20 @@
+.attachments-list-container {
+  .mat-expansion-panel-header-title {
+    flex-basis: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .attachments-divider {
+    margin: 24px 0;
+  }
+
+  .upload-button-container {
+    display: flex;
+    align-items: center;
+
+    .button-spinner {
+      margin-right: 5px;
+    }
+  }
+}

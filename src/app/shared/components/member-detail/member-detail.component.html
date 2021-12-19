@@ -1,0 +1,44 @@
+<ng-container *ngIf="member">
+  <form [formGroup]="memberFormGroup" class="pm-form hybrid-form" [ngSwitch]="memberFormContentStatus">
+    <app-tip-card tipIcon="info" *ngSwitchCase="memberFormContent.CreatorRoleRestrictionMessage">Project creator's role can not be changed.</app-tip-card>
+    <app-tip-card tipIcon="info" *ngSwitchCase="memberFormContent.OwnRoleRestrictionMessage">You can not change or remove your own role.</app-tip-card>
+    <div *ngSwitchDefault class="bordered-module px-10 pl-16 pr-16">
+      <div class="partial-width">
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Role</div>
+          <div *ngIf="editingFieldName !== fieldNames.role"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Role</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.role"
+                 class="field-content"
+                 [class.edit-indicator]="memberIsEditable && !memberIsCreator"
+                 (click)="setEditingField(fieldNames.role)">{{getProjectMemberRoleItem(member.role).title}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.role">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Role</mat-label>
+                <mat-select app-pm-autofocus [formControlName]="fieldNames.role">
+                  <mat-option *ngFor="let memberRoleItem of memberRoleItems" [value]="memberRoleItem.role">
+                    {{memberRoleItem.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.role}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <span class="inline-action-container">
+    <button mat-icon-button type="button" (click)="saveField(fieldName)" class="field-action-button">
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-icon-button type="button" (click)="cancelEdit(fieldName)" class="field-action-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+</ng-template>

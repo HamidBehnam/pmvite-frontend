@@ -1,0 +1,61 @@
+@import "variables";
+@import "mixins";
+
+.mat-expansion-panel {
+  &.mat-expanded {
+    box-shadow: 0 0 7px 0 $custom-expansions-box-shadow;
+    border: 1px solid $page-main-blue;
+
+    .mat-expansion-panel-header,
+    .mat-expansion-panel-header:focus,
+    .mat-expansion-panel-header:hover {
+      background-color: $page-main-blue;
+      border-radius: 0;
+
+      &:not(.no-extension-margin) {
+        margin-bottom: 24px;
+      }
+
+      .mat-expansion-panel-header-title,
+      .mat-expansion-panel-header-description,
+      .expansion-panel-title-meta,
+      .mat-expansion-indicator::after {
+        color: white;
+      }
+    }
+  }
+
+  .mat-expansion-panel-body {
+    @include pm-breakpoint-only(sm) {
+      padding: 0 16px 24px;
+    }
+  }
+
+  .expansion-panel-title-meta {
+    color: grey;
+    text-align: right;
+  }
+}
+
+.no-highlight {
+  .mat-expansion-panel {
+    &.mat-expanded {
+      border: none;
+
+      .mat-expansion-panel-header {
+        background-color: unset;
+        border-bottom: 1px solid #e4e4e4;
+
+        .mat-expansion-panel-header-title {
+          color: #252525;
+        }
+
+        .mat-expansion-panel-header-description,
+        .expansion-panel-title-meta,
+        .mat-expansion-indicator::after {
+          color: grey;
+        }
+      }
+    }
+  }
+}

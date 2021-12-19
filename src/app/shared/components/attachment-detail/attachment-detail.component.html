@@ -1,0 +1,97 @@
+<ng-container *ngIf="attachment">
+  <form [formGroup]="attachmentFormGroup" class="pm-form hybrid-form">
+    <div class="bordered-module px-10 pl-16 pr-16">
+      <div class="partial-width">
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">File name</div>
+          <div *ngIf="editingFieldName !== fieldNames.filename"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">File name</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.filename"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.filename)">{{attachment.filename}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.filename">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Name</mat-label>
+                <input matInput app-pm-autofocus [formControlName]="fieldNames.filename">
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.filename}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2">File size</div>
+          <div class="field-content-wrapper">
+            <div class="field-content">{{attachment.length}}</div>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2">Chunk size</div>
+          <div class="field-content-wrapper">
+            <div class="field-content">{{attachment.chunkSize}}</div>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2">Uploaded at</div>
+          <div class="field-content-wrapper">
+            <div class="field-content">{{getAttachmentUploadDateTime(attachment.uploadDate)}}</div>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2">MD5</div>
+          <div class="field-content-wrapper">
+            <div class="field-content">{{attachment.md5}}</div>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2">File</div>
+          <div class="field-content-wrapper">
+            <div class="field-content">
+              <a mat-stroked-button color="primary" [href]="getAttachmentUrl()" target="_blank">View Attachment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-width mt-30">
+      <div class="field-container">
+        <div class="field-label mat-body-2 pl-16">Description</div>
+        <div class="field-content-wrapper description-field-content-wrapper">
+          <div *ngIf="editingFieldName !== fieldNames.description"
+               class="description-field-content"
+               [class.edit-indicator]="canEdit"
+               (click)="setEditingField(fieldNames.description)">
+            <quill-view [content]="attachment.metadata.description" format="html" theme="snow"></quill-view>
+          </div>
+          <ng-container *ngIf="editingFieldName === fieldNames.description">
+            <quill-editor class="quill-container"
+                          [formControlName]="fieldNames.description"
+                          bounds=".quill-container"
+                          [styles]="{'min-height': uiService.quillEditorMinHeight}">
+            </quill-editor>
+            <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.description}"></ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <span class="inline-action-container">
+    <button mat-icon-button type="button" (click)="saveField(fieldName)" class="field-action-button">
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-icon-button type="button" (click)="cancelEdit(fieldName)" class="field-action-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+</ng-template>

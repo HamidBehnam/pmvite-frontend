@@ -1,0 +1,5 @@
+<!--TODO: since just a changed text is sufficient to apply the textChange animation, currentLabel is used as the animation state-->
+<div [cdkCopyToClipboard]="content"
+     [@textChange]="currentLabel"
+     (click)="updateCurrentLabel()"
+     class="copier-label">{{currentLabel}}</div>

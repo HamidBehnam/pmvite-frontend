@@ -1,0 +1,75 @@
+<div class="attachments-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="canEdit"
+                         (opened)="onAttachmentCreationPanelOpened()"
+                         (closed)="onAttachmentCreationPanelClosed()"
+                         #attachmentCreationPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Attachment
+          <mat-icon class="expansion-panel-title-meta">attach_file</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-tip-card tipIcon="info">
+        Please note that uploaded files will be associated with your account.
+      </app-tip-card>
+
+      <mat-action-row>
+        <div class="attachment-upload" *ngIf="canEdit">
+          <app-file-selection [acceptedFileTypes]="projectAttachmentSpecification.acceptedFileTypes"
+                           [acceptedFileSize]="projectAttachmentSpecification.acceptedFileSize"
+                           (fileSelected)="onFileSelected($event)">
+            <ng-container *ngIf="{uploadProgress: uploadProgress$ | async} as context">
+              <button mat-button color="primary" app-file-dialog-opener [disabled]="!!context.uploadProgress">
+                <span class="upload-button-container">
+                  <mat-progress-spinner
+                    class="button-spinner"
+                    mode="determinate"
+                    diameter="25"
+                    [value]="context.uploadProgress"
+                    *ngIf="context.uploadProgress">
+                  </mat-progress-spinner>
+                  <span class="button-text">
+                    Upload Attachment
+                  </span>
+                </span>
+              </button>
+            </ng-container>
+          </app-file-selection>
+        </div>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+    <mat-divider class="attachments-divider" [inset]="true" *ngIf="attachments?.length && canEdit"></mat-divider>
+
+    <mat-expansion-panel class="list-headers-align"
+                         *ngFor="let attachment of attachments"
+                         (opened)="onAttachmentDetailPanelOpened(attachment)"
+                         (closed)="onAttachmentDetailPanelClosed(attachment)"
+                         [expanded]="attachment._id === openedAttachmentPanelId">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{attachment.filename}}
+          <mat-icon class="expansion-panel-title-meta">attach_file</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-attachment-detail [attachment]="attachment"
+                             [canEdit]="canEdit"
+                             (saveRequested)="saveAttachment($event)">
+      </app-attachment-detail>
+
+      <mat-action-row>
+        <button mat-button color="warn" *ngIf="canEdit" (click)="deleteAttachment(attachment)">Remove attachment</button>
+        <button mat-button color="primary" (click)="openInFocusView(attachment)">Focus view</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!attachments?.length && !canEdit" class="mb-30">
+    <app-tip-card tipIcon="info">Project does not have any attachments.</app-tip-card>
+  </div>
+</div>

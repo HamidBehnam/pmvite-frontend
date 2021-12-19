@@ -1,0 +1,11 @@
+@import "variables";
+
+.filter-sort-label {
+  cursor: default;
+  background-color: $custom-form-description-field-bg;
+  color: grey;
+}
+
+.filter-sort-button {
+  box-shadow: 1px 2px 3px #afafaf;
+}

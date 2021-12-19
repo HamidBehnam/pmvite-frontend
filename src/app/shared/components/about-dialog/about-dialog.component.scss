@@ -1,0 +1,27 @@
+.pm-about-container {
+  a {
+    text-decoration: none;
+
+    &:visited {
+      color: #00e;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.pm-about-description {
+  text-align: justify;
+}
+
+.pm-about-title {
+  font-weight: bold;
+  padding: 30px 0 10px;
+}
+
+.mat-dialog-actions {
+  flex-direction: row-reverse;
+}
+

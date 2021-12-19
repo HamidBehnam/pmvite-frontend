@@ -1,0 +1,12 @@
+.file-input {
+  display: none;
+}
+
+.upload-button-container {
+  display: flex;
+  align-items: center;
+
+  .button-spinner {
+    margin-right: 5px;
+  }
+}

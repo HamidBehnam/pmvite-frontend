@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Help</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="pm-help-section">
+    <div class="pm-help-title">Creator Role</div>
+    <div class="pm-help-content">Project creator has the highest level of access to the project. Project creator can add or remove the members or change their roles in the project. Creator can add, update and delete the tasks and attachments. Project can only be deleted by the creator.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Admin Role</div>
+    <div class="pm-help-content">Project's admin can update the project, add or remove members. They can update the project members roles except their own role. Admin can add, update and delete the tasks and attachments.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Developer Role</div>
+    <div class="pm-help-content">Developers have access rights to add, update and delete the tasks. Developer can also upload and modify or delete the attachments.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Contributor Role</div>
+    <div class="pm-help-content">Contributors can only update the tasks.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Project Members</div>
+    <div class="pm-help-content">Refers to those users who are actively working on the project. If the project creator is willing to work on the tasks as well, they'd need to add themselves as an active member, it' because a task can only be assigned to one of the project members. If the creator is added as a member their role will automatically be set to Creator. Project's creator role can not be changed. Clarification: since project creator already has the highest level of access to their project, adding them as a member is not to provide the access, it's only to be able to assign tasks to them.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Assignee</div>
+    <div class="pm-help-content">A task assignee must be one of the project's members.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">External Collaborations</div>
+    <div class="pm-help-content">A user's "External Collaborations" refers to those projects which are not created by the user and user is just invited to work on those projects. So the user's role in external projects could be anything except Creator.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Active Tasks in context of profiles</div>
+    <div class="pm-help-content">Refers to those tasks which are not accepted.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Active Tasks in context of projects</div>
+    <div class="pm-help-content">Refers to those tasks which are not accepted and there's an assignee associated with the task who's working on it.</div>
+  </div>
+  <div class="pm-help-section">
+    <div class="pm-help-title">Available Tasks</div>
+    <div class="pm-help-content">Refers to those tasks which are not accepted and don't have an assignee.</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

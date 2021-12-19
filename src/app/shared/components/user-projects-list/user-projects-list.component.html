@@ -1,0 +1,55 @@
+<div class="user-projects-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="canEdit"
+                         (opened)="onProjectCreationPanelOpened()"
+                         (closed)="onProjectCreationPanelClosed()"
+                         #projectCreationPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Project
+          <mat-icon class="expansion-panel-title-meta">corporate_fare</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-project-form [formResetSignal]="projectFormResetSignal"
+                        (save)="createProject($event)"
+                        #projectFormComponent>
+      </app-project-form>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="projectFormComponent.triggerFormSubmission()">Add Project</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+    <mat-divider class="user-projects-divider" [inset]="true" *ngIf="projects?.length && canEdit"></mat-divider>
+
+    <mat-expansion-panel class="list-headers-align" *ngFor="let project of projects">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{project.title}}
+          <div class="expansion-panel-title-meta d-xl-none d-lg-none d-md-none">
+            {{getProgressStatusItem(project.status).title}}
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-sm-none">
+          {{getProgressStatusItem(project.status).title}}
+          <mat-icon>corporate_fare</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-tip-card tipIcon="info">
+        {{getProjectMemberRoleStatement()}} <strong>{{getProjectMemberRoleItem(project).title}}</strong>
+      </app-tip-card>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="goToProjectPage(project)">Go to project page</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!projects?.length && !canEdit" class="mb-30">
+    <app-tip-card tipIcon="info">Member does not have any projects.</app-tip-card>
+  </div>
+</div>

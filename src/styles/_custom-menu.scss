@@ -1,0 +1,14 @@
+.filter-sort-menu {
+  .mat-menu-content {
+    &:not(:empty) {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+//.restricted-width-menu {
+//  .mat-menu-content {
+//    width: 200px;
+//  }
+//}

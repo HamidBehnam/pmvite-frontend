@@ -1,0 +1,61 @@
+<div class="user-settings-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel #profileImageUploadPanel class="list-headers-align">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Profile image
+          <mat-icon class="expansion-panel-title-meta">person_outline</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-tip-card tipIcon="info">
+        Profile image is public and will be visible in the search pages.
+      </app-tip-card>
+
+      <mat-action-row>
+        <div class="image-upload">
+          <app-file-selection [acceptedFileTypes]="profileImageSpecification.acceptedFileTypes"
+                           [acceptedFileSize]="profileImageSpecification.acceptedFileSize"
+                           (fileSelected)="onFileSelected($event)">
+            <ng-container *ngIf="{uploadProgress: uploadProgress$ | async} as context">
+              <button mat-button color="primary" app-file-dialog-opener [disabled]="!!context.uploadProgress">
+                    <span class="upload-button-container">
+                      <mat-progress-spinner
+                        class="button-spinner"
+                        mode="determinate"
+                        diameter="25"
+                        [value]="context.uploadProgress"
+                        *ngIf="context.uploadProgress">
+                      </mat-progress-spinner>
+                      <span class="button-text">
+                        Change profile image
+                      </span>
+                    </span>
+              </button>
+            </ng-container>
+          </app-file-selection>
+        </div>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="list-headers-align">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Delete profile
+          <mat-icon class="expansion-panel-title-meta">delete_outline</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-tip-card tipIcon="security">
+        Deleting the profile will also delete your membership in the projects that you're invited to work on.
+        The tasks associated to you will be set to Unassigned,
+        and a warning sign will be shown in all the projects that you've created.
+      </app-tip-card>
+
+      <mat-action-row>
+        <button mat-button (click)="deleteProfile()" color="warn">Delete my profile</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

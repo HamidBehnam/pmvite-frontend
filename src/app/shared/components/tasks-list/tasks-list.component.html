@@ -1,0 +1,63 @@
+<div class="tasks-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="canCreate"
+                         (opened)="onTaskCreationPanelOpened()"
+                         (closed)="onTaskCreationPanelClosed()"
+                         #taskCreationPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add Task
+          <mat-icon class="expansion-panel-title-meta">assignment</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-task-form [project]="project"
+                               [members]="members"
+                               [formResetSignal]="taskFormResetSignal"
+                               (createTask)="createTask($event)" #taskFormComponent>
+      </app-task-form>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="taskFormComponent.triggerFormSubmission()">Add Task</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+    <mat-divider class="tasks-divider" [inset]="true" *ngIf="tasks?.length && canCreate"></mat-divider>
+
+    <mat-expansion-panel class="list-headers-align"
+                         *ngFor="let task of tasks"
+                         (opened)="onTaskDetailPanelOpened(task)"
+                         (closed)="onTaskDetailPanelClosed(task)"
+                         [expanded]="task._id === openedTaskPanelId">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{task.title}}
+          <div class="expansion-panel-title-meta d-xl-none d-lg-none d-md-none">
+            {{getProgressStatusItem(task.status).title}}
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-sm-none">
+          {{getProgressStatusItem(task.status).title}}
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-task-detail [task]="task"
+                       [members]="members"
+                       [canEdit]="canEdit"
+                       (saveRequested)="saveTask($event)">
+      </app-task-detail>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="deleteTask(task)" *ngIf="canDelete">Remove task</button>
+        <button mat-button color="primary" (click)="openInFocusView(task)">Focus view</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!tasks?.length && !canCreate" class="mb-30">
+    <app-tip-card tipIcon="info">Project does not have any tasks.</app-tip-card>
+  </div>
+</div>

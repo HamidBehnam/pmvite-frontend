@@ -1,0 +1,21 @@
+<div *ngIf="profile" class="profile-detail-container pl-8 pr-8 pt-24 pb-24 pl-sm-0 pr-sm-0">
+  <mat-accordion>
+    <mat-expansion-panel [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Profile
+        </mat-panel-title>
+        <mat-panel-description>
+          General Information
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-profile-detail [profile]="profile"
+                          [canEdit]="profile.viewerIsCreator"
+                          (saveRequested)="saveProfile($event)">
+      </app-profile-detail>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

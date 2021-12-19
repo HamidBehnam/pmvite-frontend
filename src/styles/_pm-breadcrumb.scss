@@ -1,0 +1,20 @@
+@import "mixins";
+
+.pm-breadcrumb {
+  display: flex;
+  align-items: center;
+
+  .breadcrumb-divider {
+    flex-basis: 24px;
+  }
+
+  .pm-breadcrumb-tail-container {
+    display: flex;
+  }
+
+  &.pm-focus-breadcrumb {
+    @include pm-breakpoint-only(sm) {
+      justify-content: space-between;
+    }
+  }
+}

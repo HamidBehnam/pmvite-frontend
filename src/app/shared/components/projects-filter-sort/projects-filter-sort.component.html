@@ -1,0 +1,50 @@
+<ng-container *ngIf="filterAndSortForm">
+  <button mat-mini-fab
+          color="primary"
+          *ngIf="filterAndSortApplied"
+          [matMenuTriggerFor]="filterAndSortMenu"
+          (menuOpened)="filterAndSortMenuOpened()"
+          (menuClosed)="filterAndSortMenuClosed()">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  <button mat-icon-button
+          color="primary"
+          class="filter-sort-button"
+          *ngIf="!filterAndSortApplied"
+          [matMenuTriggerFor]="filterAndSortMenu"
+          (menuOpened)="filterAndSortMenuOpened()"
+          (menuClosed)="filterAndSortMenuClosed()">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  <mat-menu #filterAndSortMenu="matMenu" [formGroup]="filterAndSortForm" class="filter-sort-menu">
+    <div class="filter-sort-label mat-caption pl-16 pr-16 pt-4 pb-4 mx-0" (click)="$event.stopPropagation()">MUST HAVE</div>
+
+    <button mat-menu-item
+            (click)="handleMenuItemClick($event)"
+            formArrayName="stat"
+            *ngFor="let stat of stat.controls; let index = index;">
+      <mat-checkbox color="primary" [formControlName]="index">{{statFields[index].title}}</mat-checkbox>
+    </button>
+    <div class="filter-sort-label mat-caption pl-16 pr-16 pt-4 pb-4 mx-0" (click)="$event.stopPropagation()">SORT BY</div>
+    <mat-radio-group aria-label="Select an option" formControlName="sortBy">
+      <button mat-menu-item (click)="handleMenuItemClick($event)" *ngFor="let sortByField of sortByFields">
+        <mat-radio-button color="primary" [value]="sortByField.name">{{sortByField.title}}</mat-radio-button>
+      </button>
+    </mat-radio-group>
+    <div class="filter-sort-label mat-caption pl-16 pr-16 pt-4 pb-4 mx-0" (click)="$event.stopPropagation()">SORT ORDER</div>
+    <mat-radio-group aria-label="Select an option" formControlName="sortOrder">
+      <button mat-menu-item (click)="handleMenuItemClick($event)" *ngFor="let sortOrderField of sortOrderFields">
+        <mat-radio-button color="primary" [value]="sortOrderField.name">{{sortOrderField.title}}</mat-radio-button>
+      </button>
+    </mat-radio-group>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon>check</mat-icon>
+      <span>Apply</span>
+    </button>
+    <button (click)="resetFilterAndSortSelection()" mat-menu-item>
+      <mat-icon>clear</mat-icon>
+      <span>Reset</span>
+    </button>
+  </mat-menu>
+</ng-container>

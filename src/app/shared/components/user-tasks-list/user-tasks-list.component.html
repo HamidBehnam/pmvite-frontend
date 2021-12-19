@@ -1,0 +1,37 @@
+<div class="user-tasks-list-container pl-8 pr-8 pt-24 pb-24 pl-sm-4 pr-sm-4">
+
+  <mat-accordion>
+    <mat-expansion-panel class="list-headers-align"
+                         *ngFor="let task of tasks; let index = index;"
+                         (opened)="setCurrentPanelIndex(index)"
+                         (closed)="clearCurrentPanelIndex(index)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+<!--          <a *ngIf="index === openedPanelIndex else titleText" href="https://www.google.com">{{task.title}}</a>-->
+<!--          <ng-template #titleText>{{task.title}}</ng-template>-->
+          {{task.title}}
+          <div class="expansion-panel-title-meta d-xl-none d-lg-none d-md-none">
+            {{getProgressStatusItem(task.status).title}}
+          </div>
+        </mat-panel-title>
+        <mat-panel-description class="d-sm-none">
+          {{getProgressStatusItem(task.status).title}}
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-tip-card tipIcon="info">
+        Project: {{task.project.title}}
+      </app-tip-card>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="goToTaskPage(task)">Go to task</button>
+        <button mat-button color="primary" (click)="goToProjectPage(task.project)">Go to project</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!tasks?.length" class="mb-30">
+    <app-tip-card tipIcon="info">No assigned tasks were found.</app-tip-card>
+  </div>
+</div>

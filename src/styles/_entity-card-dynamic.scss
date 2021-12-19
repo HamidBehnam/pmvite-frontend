@@ -1,0 +1,23 @@
+// this file includes styling for those entities-list elements which are added dynamically by angular material
+// and it's not possible to style them in component level.
+
+// .mat-tab-header will be added by angular material and it cant be styled in component level.
+
+.entity-card {
+
+  .mat-tab-header-pagination {
+    display: none !important;
+  }
+
+  .mat-tab-header {
+    overflow-x: scroll;
+  }
+
+  .mat-tab-label-container {
+    overflow: visible;
+  }
+
+  .mat-tab-header::-webkit-scrollbar {
+    display: none;
+  }
+}

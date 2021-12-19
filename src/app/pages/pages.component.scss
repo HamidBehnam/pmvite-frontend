@@ -1,0 +1,45 @@
+@import "variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  &.has-sticky-footer {
+    .content {
+      margin-bottom: 68px;
+    }
+  }
+
+  &.has-partial-navbar {
+    .container {
+      .content {
+        /* min-height: calc(100vh - header's height - footer's height -1px) 1px to make sure empty page is not scrollable */
+        min-height: calc(100vh - 133px);
+      }
+    }
+  }
+
+  &.landing-page-ui-activated {
+    .container {
+      .content {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  background-color: $page-bg;
+
+  .content {
+    /* min-height: calc(100vh - header's height - footer's height -1px) 1px to make sure empty page is not scrollable */
+    min-height: calc(100vh - 197px);
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    box-shadow: 0 0 10px $page-content-box-shadow;
+  }
+}

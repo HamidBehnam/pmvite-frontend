@@ -1,0 +1,8 @@
+.entity-card {
+  box-shadow: none;
+
+  .mat-card-actions {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}

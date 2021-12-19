@@ -1,0 +1,29 @@
+<div *ngIf="attachment" class="attachment-focus-view-container pl-8 pr-8 pt-24 pl-sm-0 pr-sm-0">
+  <mat-accordion>
+    <mat-expansion-panel [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Attachment
+        </mat-panel-title>
+        <mat-panel-description>
+          Focus view
+          <mat-icon>attach_file</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="pm-breadcrumb pm-focus-breadcrumb mb-24">
+        <button mat-stroked-button color="primary" (click)="showProjectAttachments()">Project Attachments</button>
+        <mat-icon class="d-sm-none">keyboard_arrow_right</mat-icon>
+        <span class="d-sm-none">{{attachment.filename}}</span>
+        <div class="breadcrumb-divider d-sm-none"></div>
+        <app-content-copier [content]="attachmentDirectLink" label="Copy link"></app-content-copier>
+      </div>
+
+      <app-attachment-detail [attachment]="attachment"
+                             [canEdit]="canEdit"
+                             (saveRequested)="saveAttachment($event)">
+      </app-attachment-detail>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

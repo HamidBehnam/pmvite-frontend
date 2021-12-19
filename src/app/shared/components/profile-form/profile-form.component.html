@@ -1,0 +1,83 @@
+<div class="profile-creation-form-container pl-8 pr-8 pt-24 pb-24">
+  <mat-accordion>
+    <mat-expansion-panel [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Profile
+        </mat-panel-title>
+        <mat-panel-description>
+          General Information
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="profileFormGroup" #profileFormRef="ngForm" (ngSubmit)="saveEmitter()" class="pm-form solid-form">
+        <div class="bordered-module px-10 pl-16 pr-16">
+          <div class="partial-width">
+            <div class="field-container">
+              <div class="field-label mat-body-2">First name</div>
+              <div class="field-content-wrapper">
+                <mat-form-field appearance="fill" class="form-field-pointer">
+                  <mat-label>First name</mat-label>
+                  <input matInput placeholder="First name" formControlName="firstName" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="field-container">
+              <div class="field-label mat-body-2">Last name</div>
+              <div class="field-content-wrapper">
+                <mat-form-field appearance="fill" class="form-field-pointer">
+                  <mat-label>Last name</mat-label>
+                  <input matInput placeholder="Last name" formControlName="lastName" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="field-container">
+              <div class="field-label mat-body-2">What I do</div>
+              <div class="field-content-wrapper">
+                <mat-form-field appearance="fill" class="form-field-pointer">
+                  <mat-label>What I do</mat-label>
+                  <input matInput placeholder="What I do" formControlName="title" required>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="full-width mt-30">
+          <div class="field-container">
+            <div class="field-label mat-body-2 pl-16">Description</div>
+            <div class="field-content-wrapper description-field-content-wrapper">
+              <div *ngIf="editingFieldName !== 'description'"
+                   class="description-field-content edit-indicator"
+                   (click)="setEditingField('description')">
+                <quill-view [content]="profileFormGroup.controls.description.value" format="html" theme="snow"></quill-view>
+              </div>
+              <ng-container *ngIf="editingFieldName === 'description'">
+                <quill-editor class="quill-container"
+                              formControlName="description"
+                              bounds=".quill-container"
+                              [styles]="{'min-height': uiService.quillEditorMinHeight}">
+                </quill-editor>
+                <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: 'description'}"></ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="triggerFormSubmission()">Create Profile</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <button mat-button color="primary" (click)="preview(fieldName)" class="field-action-button">
+    <span>Preview</span>
+  </button>
+</ng-template>

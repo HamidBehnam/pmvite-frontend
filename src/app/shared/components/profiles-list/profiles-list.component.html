@@ -1,0 +1,156 @@
+<div *ngIf="profiles$ | async as profiles" class="entities-list-container pl-24 pr-24 pl-sm-16 pr-sm-16">
+  <div class="entities-list-header px-24">
+    <div class="header-title mat-display-1 mb-0">People</div>
+    <div class="header-sub-title mat-subheading-1 d-sm-none mb-0">Great resources make great things happen</div>
+    <app-profiles-filter-sort [filterAndSortSelection]="filterAndSortSelection"
+                              (filterAndSortChanged)="filterAndSortChangeEmitter($event)"
+                              class="d-xl-none d-lg-none d-md-none">
+    </app-profiles-filter-sort>
+  </div>
+
+  <div class="list-settings-bar pl-24 pl-sm-0 pr-0 mb-16 mb-sm-0">
+    <mat-paginator *ngIf="paginationMeta"
+                   [length]="paginationMeta.length"
+                   [pageSize]="paginationMeta.pageSize"
+                   [pageSizeOptions]="paginationMeta.pageSizeOptions"
+                   [pageIndex]="paginationMeta.pageIndex"
+                   (page)="paginationChangeEmitter($event)"
+                   class="paginator-bar"
+                   aria-label="Select page">
+    </mat-paginator>
+
+    <app-profiles-filter-sort [filterAndSortSelection]="filterAndSortSelection"
+                              (filterAndSortChanged)="filterAndSortChangeEmitter($event)"
+                              class="d-sm-none">
+    </app-profiles-filter-sort>
+  </div>
+
+  <mat-accordion [multi]="true" class="no-highlight">
+    <mat-expansion-panel *ngFor="let profile of profiles" [disabled]="true" [expanded]="true">
+      <mat-expansion-panel-header class="no-extension-margin">
+        <mat-panel-title class="mr-0">
+          <div class="entity-avatar-title">
+            <div class="avatar">
+              <img [src]="profilesHelpersService.getProfileImage(profile)" alt="">
+            </div>
+            <div>{{profile.firstName}} {{profile.lastName}}</div>
+          </div>
+          <mat-icon class="expansion-panel-title-meta">account_circle</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="entity-menu-buttons mb-8">
+        <div *ngIf="profile.createdProjects.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="createdProjectsMenu">
+            <span class="entity-button-label">Created Projects</span>
+            <mat-icon [matBadge]="profile.createdProjects.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #createdProjectsMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let project of profile.createdProjects"
+               [routerLink]="['/projects', project._id]">
+              {{project.title}}
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="profile.externalCollaborations.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="externalCollaborationsMenu">
+            <span class="entity-button-label">External Collaborations</span>
+            <mat-icon [matBadge]="profile.externalCollaborations.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #externalCollaborationsMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let collaboration of profile.externalCollaborations"
+               [routerLink]="['/projects', collaboration.project._id]">
+              <strong>{{getProjectMemberRoleItem(collaboration.role).title}}</strong> in "{{collaboration.project.title}}"
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="profile.activeTasks.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="activeTasksMenu">
+            <span class="entity-button-label">Active Tasks</span>
+            <mat-icon [matBadge]="profile.activeTasks.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #activeTasksMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let task of profile.activeTasks"
+               [routerLink]="['/projects', task.project._id]"
+               [queryParams]="{section: 2, task: task._id}">
+              <strong>{{task.title}}</strong> in "{{task.project.title}}"
+            </a>
+          </mat-menu>
+        </div>
+
+        <div *ngIf="profile.acceptedTasks.length" class="mt-24 pl-4 pr-4">
+          <button mat-stroked-button
+                  [matMenuTriggerFor]="acceptedTasksMenu">
+            <span class="entity-button-label">Accepted Tasks</span>
+            <mat-icon [matBadge]="profile.acceptedTasks.length"
+                      matBadgeOverlap="true"
+                      class="more-icon">unfold_more</mat-icon>
+          </button>
+          <mat-menu #acceptedTasksMenu="matMenu">
+            <a mat-menu-item
+               *ngFor="let task of profile.acceptedTasks"
+               [routerLink]="['/projects', task.project._id]"
+               [queryParams]="{section: 2, task: task._id}">
+              <strong>{{task.title}}</strong> in "{{task.project.title}}"
+            </a>
+          </mat-menu>
+        </div>
+      </div>
+
+      <div *ngIf="hasNoActivity(profile)" class="mt-24 mb-8">Member does not have any recent activities.</div>
+
+      <mat-action-row class="d-sm-none">
+        <a mat-button
+           color="primary"
+           [routerLink]="['/profiles', profile._id]">Details</a>
+        <a mat-button
+           color="primary"
+           [routerLink]="['/profiles', profile._id]"
+           [queryParams]="{section: 1}">Projects</a>
+        <a mat-button
+           color="primary"
+           [routerLink]="['/profiles', profile._id]"
+           [queryParams]="{section: 2}">Tasks</a>
+      </mat-action-row>
+
+      <mat-action-row class="d-md-none d-lg-none d-xl-none">
+        <button mat-flat-button color="primary"
+                [matMenuTriggerFor]="profileLinks">
+          Details
+          <mat-icon class="more-icon">unfold_more</mat-icon>
+        </button>
+        <mat-menu #profileLinks="matMenu">
+          <a mat-menu-item
+             [routerLink]="['/profiles', profile._id]">
+            General
+          </a>
+          <a mat-menu-item
+             [routerLink]="['/profiles', profile._id]"
+             [queryParams]="{section: 1}">
+            Projects
+          </a>
+          <a mat-menu-item
+             [routerLink]="['/profiles', profile._id]"
+             [queryParams]="{section: 2}">
+            Tasks
+          </a>
+        </mat-menu>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,0 +1,100 @@
+<ng-container *ngIf="profile">
+  <form [formGroup]="profileFormGroup" class="pm-form hybrid-form">
+    <div class="bordered-module px-10 pl-16 pr-16">
+      <div class="partial-width">
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">First name</div>
+          <div *ngIf="editingFieldName !== fieldNames.firstName"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">First name</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.firstName"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.firstName)">{{profile.firstName}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.firstName">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>First name</mat-label>
+                <input matInput app-pm-autofocus [formControlName]="fieldNames.firstName">
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.firstName}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Last name</div>
+          <div *ngIf="editingFieldName !== fieldNames.lastName"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Last name</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.lastName"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.lastName)">{{profile.lastName}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.lastName">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Last name</mat-label>
+                <input matInput app-pm-autofocus [formControlName]="fieldNames.lastName">
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.lastName}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="field-container">
+          <div class="field-label mat-body-2 d-sm-none">Title</div>
+          <div *ngIf="editingFieldName !== fieldNames.title"
+               [@labelShowHide]
+               class="field-label mat-body-2 d-xl-none d-lg-none d-md-none">Title</div>
+          <div class="field-content-wrapper">
+            <div *ngIf="editingFieldName !== fieldNames.title"
+                 class="field-content"
+                 [class.edit-indicator]="canEdit"
+                 (click)="setEditingField(fieldNames.title)">{{profile.title}}</div>
+            <ng-container *ngIf="editingFieldName === fieldNames.title">
+              <mat-form-field appearance="fill" class="form-field-pointer">
+                <mat-label>Title</mat-label>
+                <input matInput app-pm-autofocus [formControlName]="fieldNames.title">
+              </mat-form-field>
+              <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.title}"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-width mt-30">
+      <div class="field-container">
+        <div class="field-label mat-body-2 pl-16">Description</div>
+        <div class="field-content-wrapper description-field-content-wrapper">
+          <div *ngIf="editingFieldName !== fieldNames.description"
+               class="description-field-content"
+               [class.edit-indicator]="canEdit"
+               (click)="setEditingField(fieldNames.description)">
+            <quill-view [content]="profile.description" format="html" theme="snow"></quill-view>
+          </div>
+          <ng-container *ngIf="editingFieldName === fieldNames.description">
+            <quill-editor class="quill-container"
+                          [formControlName]="fieldNames.description"
+                          bounds=".quill-container"
+                          [styles]="{'min-height': uiService.quillEditorMinHeight}">
+            </quill-editor>
+            <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: fieldNames.description}"></ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <span class="inline-action-container">
+    <button mat-icon-button (click)="saveField(fieldName)" class="field-action-button">
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-icon-button (click)="cancelEdit(fieldName)" class="field-action-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+</ng-template>

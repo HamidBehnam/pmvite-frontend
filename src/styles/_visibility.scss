@@ -1,0 +1,7 @@
+@import "mixins";
+
+.d-none { display: none !important; }
+.d-xl-none { @include pm-breakpoint-only(xl) { display: none !important; } }
+.d-lg-none { @include pm-breakpoint-only(lg) { display: none !important; } }
+.d-md-none { @include pm-breakpoint-only(md) { display: none !important; } }
+.d-sm-none { @include pm-breakpoint-only(sm) { display: none !important; } }

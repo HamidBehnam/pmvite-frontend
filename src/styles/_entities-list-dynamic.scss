@@ -1,0 +1,31 @@
+@import "mixins";
+
+// this file includes styling for those entities-list elements which are added dynamically by angular material
+// and it's not possible to style them in component level.
+
+// .mat-button-wrapper will be added by angular material and it can't be styled in component level.
+// .mat-paginator-container will be added by angular material and it can't be styled in component level.
+
+.entities-list-container {
+
+  .entity-menu-buttons {
+
+    .mat-button-wrapper {
+      @include pm-breakpoint-only(sm) {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .entity-button-label {
+      @include pm-breakpoint-only(sm) {
+        flex: 1;
+        text-align: left;
+      }
+    }
+  }
+
+  .mat-paginator-container {
+    padding: 0;
+  }
+}

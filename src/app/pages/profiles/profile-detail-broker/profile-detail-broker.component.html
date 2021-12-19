@@ -1,0 +1,62 @@
+<mat-card class="entity-card" *ngIf="selectedProfile$ | async as profile">
+  <mat-card-header>
+    <img mat-card-avatar [src]="profilesHelpersService.getProfileImage(profile)" alt="">
+    <mat-card-title class="pm-breadcrumb">
+      {{profile.firstName}} {{profile.lastName}}
+      <div class="pm-breadcrumb-tail-container d-sm-none">
+        <ng-container *ngFor="let breadcrumbSection of breadcrumbSections">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+          <span>{{breadcrumbSection}}</span>
+        </ng-container>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>{{profile.title}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group [selectedIndex]="pageSection" (selectedIndexChange)="updateUrl($event)">
+      <mat-tab label="General">
+        <app-profile-general [profile]="profile"
+                            [canEdit]="profile.viewerIsCreator"
+                            (saveRequested)="saveGeneral(profile, $event)">
+        </app-profile-general>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="getTotalProjects(profile) || ''" matBadgeOverlap="false">{{getProjectsSectionLabel(profile)}}</span>
+        </ng-template>
+        <ng-container *ngIf="projects$ | async as projects">
+          <app-user-projects-list [profile]="profile"
+                                  [projects]="projects"
+                                  [canEdit]="profile.viewerIsCreator"
+                                  [projectCreationPanelOpeningSignal]="projectCreationPanelOpeningSignal"
+                                  (projectCreationRequested)="createProject($event)"
+                                  (projectCreationPanelOpened)
+                                    ="onCreationPanelOpened(panelQueryParam.ProjectCreationPanel)"
+                                  (projectCreationPanelClosed)
+                                    ="onCreationPanelClosed(panelQueryParam.ProjectCreationPanel)"
+                                  (showProject)="goToProjectPage($event)">
+          </app-user-projects-list>
+        </ng-container>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="getTotalTasks(profile) || ''" matBadgeOverlap="false">{{getTasksSectionLabel(profile)}}</span>
+        </ng-template>
+        <ng-container *ngIf="tasks$ | async as tasks">
+          <app-user-tasks-list [tasks]="tasks"
+                               (showTask)="goToTaskPage($event)"
+                               (showProject)="goToProjectPage($event)">
+          </app-user-tasks-list>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="Settings" *ngIf="profile.viewerIsCreator">
+        <app-user-settings-list [uploadProgress$]="uploadProgress$"
+                           [closeProfileImageUploadPanel$]="closeProfileImageUploadPanel$"
+                           (profileImageSelectedForUpload)="onProfileImageSelected(profile, $event)"
+                           (profileDeletionRequested)="deleteProfile(profile)">
+        </app-user-settings-list>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+

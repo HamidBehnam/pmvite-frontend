@@ -1,0 +1,64 @@
+<form [formGroup]="projectFormGroup" #projectFormRef="ngForm" (ngSubmit)="submitForm()" class="pm-form solid-form">
+  <div class="partial-width">
+    <div class="field-container">
+      <div class="field-label mat-body-2">Title</div>
+      <div class="field-content-wrapper">
+        <mat-form-field appearance="fill" class="form-field-pointer">
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Title" formControlName="title" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="field-container">
+      <div class="field-label mat-body-2">Objectives</div>
+      <div class="field-content-wrapper">
+        <mat-form-field appearance="fill" class="form-field-pointer">
+          <mat-label>Objectives</mat-label>
+          <input matInput placeholder="Highest project priorities" formControlName="objectives" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="field-container">
+      <div class="field-label mat-body-2">Status</div>
+      <div class="field-content-wrapper">
+        <mat-form-field appearance="fill" class="form-field-pointer">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let statusItem of statusItems" [value]="statusItem.status">
+              {{statusItem.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-width mt-30">
+    <div class="field-container">
+      <div class="field-label mat-body-2">Description</div>
+      <div class="field-content-wrapper description-field-content-wrapper">
+        <div *ngIf="editingFieldName !== 'description'"
+             class="description-field-content edit-indicator"
+             (click)="setEditingField('description')">
+          <quill-view [content]="projectFormGroup.controls.description.value" format="html" theme="snow"></quill-view>
+        </div>
+        <ng-container *ngIf="editingFieldName === 'description'">
+          <quill-editor class="quill-container"
+                        formControlName="description"
+                        bounds=".quill-container"
+                        [styles]="{'min-height': uiService.quillEditorMinHeight}">
+          </quill-editor>
+          <ng-container *ngTemplateOutlet="actionButtons; context: {fieldName: 'description'}"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #actionButtons let-fieldName="fieldName">
+  <button mat-button color="primary" (click)="preview(fieldName)" class="field-action-button">
+    <span>Preview</span>
+  </button>
+</ng-template>
