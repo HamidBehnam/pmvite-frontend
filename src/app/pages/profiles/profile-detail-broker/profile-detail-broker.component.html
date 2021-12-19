@@ -1,6 +1,10 @@
 <mat-card class="entity-card" *ngIf="selectedProfile$ | async as profile">
   <mat-card-header>
-    <img mat-card-avatar [src]="profilesHelpersService.getProfileImage(profile) | withAuth | async" alt="">
+    <img *ngIf="{imageUrl: profilesHelpersService.getProfileImage(profile) | withAuth | async} as context"
+         [src]="context.imageUrl"
+         [class.image-loading]="!context.imageUrl"
+         mat-card-avatar
+         alt="">
     <mat-card-title class="pm-breadcrumb">
       {{profile.firstName}} {{profile.lastName}}
       <div class="pm-breadcrumb-tail-container d-sm-none">
