@@ -19,5 +19,5 @@ export const environment = {
   authConfig,
   apiUrl,
   appInfoUrl,
-  baseUrl: 'https://dev.hamidbehnam.com/pm'
+  baseUrl: 'https://dev.pmvite.com'
 };
