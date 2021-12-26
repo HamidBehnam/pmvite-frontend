@@ -6,13 +6,15 @@ RUN pwd
 
 RUN node --version
 
+ARG TARGET_ENVIRONMENT=production
+
 COPY . .
 
 RUN ls -la
 
 RUN npm install
 
-RUN npm run build
+RUN npm run build -- --configuration=$TARGET_ENVIRONMENT
 
 RUN ls -la
 

@@ -1,7 +1,7 @@
 import { AuthConfig } from '@auth0/auth0-angular';
 import { helpers } from '../helpers';
 
-const apiUrl = 'https://dev.hamidbehnam.com/nodejs/8324/api/v1';
+const apiUrl = 'https://api-dev.pmvite.com/api/v1';
 const appInfoUrl = 'assets/app-info.json';
 
 const authConfig: AuthConfig = {
