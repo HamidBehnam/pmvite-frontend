@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   signup(): void {
     this.authService.loginWithRedirect({
       screen_hint: 'signup',
-      appState: { target: '/projects/list' }
+      appState: { target: '/projects' }
     });
   }
 }
