@@ -1,14 +1,14 @@
 import { AuthConfig } from '@auth0/auth0-angular';
 import { helpers } from '../helpers';
 
-const apiUrl = 'https://hamidbehnam.com/nodejs/8324/api/v1';
+const apiUrl = 'https://api.pmvite.com/api/v1';
 const appInfoUrl = 'assets/app-info.json';
 
 const authConfig: AuthConfig = {
-  domain: 'hamidbehnam-project-management-s1.us.auth0.com',
-  clientId: 'tx7pdrg3Ioaw9GZWYYV1tCtarAikJ971',
+  domain: 'pmvite.us.auth0.com',
+  clientId: '4McxAA3k5z1jcwzV3Psx1W7XyOnyBrmZ',
   redirectUri: window.location.origin + helpers.getBaseHref(),
-  audience: 'https://hamidbehnam.com/nodejs/8324/',
+  audience: 'https://pmvite.com/hamidev-nodejs-8326-src/',
   httpInterceptor: {
     allowedList: [`${apiUrl}/*`]
   }
@@ -19,5 +19,5 @@ export const environment = {
   authConfig,
   apiUrl,
   appInfoUrl,
-  baseUrl: 'https://hamidbehnam.com/pm'
+  baseUrl: 'https://pmvite.com'
 };
