@@ -25,28 +25,14 @@
         <div class="field-container">
           <div class="field-label mat-body-2">File size</div>
           <div class="field-content-wrapper">
-            <div class="field-content">{{attachment.length}}</div>
-          </div>
-        </div>
-
-        <div class="field-container">
-          <div class="field-label mat-body-2">Chunk size</div>
-          <div class="field-content-wrapper">
-            <div class="field-content">{{attachment.chunkSize}}</div>
+            <div class="field-content">{{attachment.size}}</div>
           </div>
         </div>
 
         <div class="field-container">
           <div class="field-label mat-body-2">Uploaded at</div>
           <div class="field-content-wrapper">
-            <div class="field-content">{{getAttachmentUploadDateTime(attachment.uploadDate)}}</div>
-          </div>
-        </div>
-
-        <div class="field-container">
-          <div class="field-label mat-body-2">MD5</div>
-          <div class="field-content-wrapper">
-            <div class="field-content">{{attachment.md5}}</div>
+            <div class="field-content">{{getAttachmentUploadDateTime(attachment.createdAt)}}</div>
           </div>
         </div>
 
@@ -73,7 +59,7 @@
                class="description-field-content"
                [class.edit-indicator]="canEdit"
                (click)="setEditingField(fieldNames.description)">
-            <quill-view [content]="attachment.metadata.description" format="html" theme="snow"></quill-view>
+            <quill-view [content]="attachment.description" format="html" theme="snow"></quill-view>
           </div>
           <ng-container *ngIf="editingFieldName === fieldNames.description">
             <quill-editor class="quill-container"

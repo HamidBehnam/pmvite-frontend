@@ -3,7 +3,7 @@ import { FileReference } from '../../types/file-reference.model';
 import { FormInteractionResult } from '../../types/form-interacation-result.model';
 import { AttachmentForm } from '../../types/attachment-form.model';
 import { FileSpecification } from '../../types/file-specification.model';
-import { getProjectAttachmentSpecification } from '../../types/project.model';
+import { getProjectAttachmentSpecification, Project } from '../../types/project.model';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { FileDownloadMeta } from '../../types/file-download-meta';
@@ -15,6 +15,7 @@ import { FileDownloadMeta } from '../../types/file-download-meta';
 })
 export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Input() project?: Project;
   @Input() attachments?: FileReference[];
   @Input() canEdit?: boolean;
   @Input() uploadProgress$: BehaviorSubject<number>;
