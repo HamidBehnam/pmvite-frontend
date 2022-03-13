@@ -154,7 +154,7 @@ export class ProfileDetailBrokerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(choice => {
       if (choice) {
         this.profilesService.deleteProfile(profile._id).subscribe(_ => {
-          this.router.navigate(['profiles', 'list']);
+          this.router.navigate(['profiles']);
         });
       }
     });

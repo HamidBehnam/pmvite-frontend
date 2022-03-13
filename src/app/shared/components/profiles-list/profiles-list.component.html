@@ -31,7 +31,10 @@
         <mat-panel-title class="mr-0">
           <div class="entity-avatar-title">
             <div class="avatar">
-              <img *ngIf="{imageUrl: profilesHelpersService.getProfileImage(profile) | withAuth | async} as context"
+              <img *ngIf="!profile.image"
+                   [src]="profilesHelpersService.getProfileImage(profile)"
+                   alt="">
+              <img *ngIf="profile.image && {imageUrl: profilesHelpersService.getProfileImage(profile) | withAuth | async} as context"
                    [src]="context.imageUrl"
                    [class.image-loading]="!context.imageUrl"
                    alt="">
