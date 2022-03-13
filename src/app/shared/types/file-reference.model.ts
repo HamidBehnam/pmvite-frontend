@@ -1,7 +1,7 @@
 export interface FileReference {
   _id: string;
   filename: string;
-  path: string;
+  prefix: string;
   size: number;
   uploadedBy: string;
   storageOwner: string;

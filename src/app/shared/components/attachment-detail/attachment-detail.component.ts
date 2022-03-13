@@ -101,7 +101,7 @@ export class AttachmentDetailComponent implements OnInit {
   }
 
   getAttachmentUrl(): string {
-    return `${environment.apiUrl}/projects/${this.project?._id}/attachments/${this.attachment?.path}`;
+    return `${environment.apiUrl}/projects/${this.project?._id}/attachments/${this.attachment?._id}`;
   }
 
   getAttachmentUploadDateTime(uploadRawDateTime: string): string {
