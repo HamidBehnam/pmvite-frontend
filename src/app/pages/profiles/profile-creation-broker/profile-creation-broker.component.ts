@@ -33,7 +33,7 @@ export class ProfileCreationBrokerComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['profiles', 'list']);
+    this.router.navigate(['profiles']);
   }
 
   save(payload: Partial<Profile>): void {

@@ -220,7 +220,7 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
   }
 
   goToAllProjects(): void {
-    this.router.navigate(['projects', 'list']);
+    this.router.navigate(['projects']);
   }
 
   onProjectImageFileSelected(project: Project, file: File): void {
@@ -399,7 +399,7 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(choice => {
       if (choice) {
         this.projectsService.deleteProject(this.requestedProjectId).subscribe(_ => {
-          this.router.navigate(['projects', 'list']);
+          this.router.navigate(['projects']);
           this.matSnackBar.open('Project was successfully removed!', 'OK', {duration: 5000});
         });
       }
