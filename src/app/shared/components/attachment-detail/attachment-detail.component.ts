@@ -108,10 +108,11 @@ export class AttachmentDetailComponent implements OnInit {
     return moment(uploadRawDateTime).format('MMMM Do YYYY, h:mm:ss A');
   }
 
-  downloadAttachment(fileUrl: string, fileName: string): void {
+  downloadAttachment(fileUrl: string, fileName: string, contentType: string): void {
     this.downloadRequested.emit({
       fileUrl,
-      fileName
+      fileName,
+      contentType
     });
   }
 }

@@ -1,6 +1,7 @@
 export interface FileReference {
   _id: string;
   filename: string;
+  contentType: string;
   prefix: string;
   size: number;
   uploadedBy: string;
