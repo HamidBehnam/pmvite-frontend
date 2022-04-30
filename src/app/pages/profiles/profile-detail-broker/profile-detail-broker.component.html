@@ -1,6 +1,10 @@
 <mat-card class="entity-card" *ngIf="selectedProfile$ | async as profile">
   <mat-card-header>
-    <img *ngIf="{imageUrl: profilesHelpersService.getProfileImage(profile) | withAuth | async} as context"
+    <img *ngIf="!profile.image"
+         [src]="profilesHelpersService.getProfileImage(profile)"
+         mat-card-avatar
+         alt="">
+    <img *ngIf="profile.image && {imageUrl: profilesHelpersService.getProfileImage(profile) | withAuth | async} as context"
          [src]="context.imageUrl"
          [class.image-loading]="!context.imageUrl"
          mat-card-avatar

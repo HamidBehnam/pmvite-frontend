@@ -55,7 +55,7 @@ export class AttachmentsService {
           if (backupAttachment) {
             const attachmentForm: Partial<AttachmentForm> = {
               filename: backupAttachment.filename,
-              description: backupAttachment.metadata.description || ''
+              description: backupAttachment.description || ''
             };
 
             this.updateProjectAttachmentInStore(attachmentId, attachmentForm);
@@ -73,10 +73,7 @@ export class AttachmentsService {
       ...payload.filename && { filename: payload.filename },
       ...(payload.description || payload.description === '') &&
       {
-        metadata: {
-          ...currentAttachmentInStore && currentAttachmentInStore.metadata,
-          description: payload.description
-        }
+        description: payload.description
       }
     };
 

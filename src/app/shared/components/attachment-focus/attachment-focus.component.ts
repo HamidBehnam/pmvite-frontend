@@ -3,6 +3,7 @@ import { FileReference } from '../../types/file-reference.model';
 import { FormInteractionResult } from '../../types/form-interacation-result.model';
 import { AttachmentForm } from '../../types/attachment-form.model';
 import { FileDownloadMeta } from '../../types/file-download-meta';
+import { Project } from '../../types/project.model';
 
 @Component({
   selector: 'app-attachment-focus',
@@ -11,6 +12,7 @@ import { FileDownloadMeta } from '../../types/file-download-meta';
 })
 export class AttachmentFocusComponent implements OnInit {
 
+  @Input() project?: Project;
   @Input() attachment?: FileReference;
   @Input() canEdit?: boolean;
   @Input() attachmentDirectLink: string;

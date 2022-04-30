@@ -29,7 +29,6 @@
     "@datorama/akita": "^7.0.1",
     "@sentry/angular": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
-    "file-saver": "^2.0.5",
     "jdenticon": "^3.1.1",
     "moment": "^2.29.1",
     "ngx-jdenticon": "^1.0.4",
@@ -55,7 +54,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "puppeteer": "^13.0.0",
     "typescript": "~4.5.2"
   }
 }

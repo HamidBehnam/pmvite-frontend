@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { UiService } from '../../services/ui.service';
 import { labelShowHideTrigger } from '../../animations/label-show-hide-trigger';
 import { FileDownloadMeta } from '../../types/file-download-meta';
+import { Project } from '../../types/project.model';
 
 @Component({
   selector: 'app-attachment-detail',
@@ -19,6 +20,7 @@ import { FileDownloadMeta } from '../../types/file-download-meta';
 })
 export class AttachmentDetailComponent implements OnInit {
 
+  @Input() project?: Project;
   @Input() attachment?: FileReference;
   @Input() canEdit?: boolean;
   @Output() saveRequested: EventEmitter<FormInteractionResult<AttachmentForm>>;
@@ -44,7 +46,7 @@ export class AttachmentDetailComponent implements OnInit {
     if (this.attachment) {
       this.attachmentFormGroup.setValue({
         [this.fieldNames.filename]: this.getFilenameWithoutExtension(),
-        [this.fieldNames.description]: this.attachment.metadata.description || ''
+        [this.fieldNames.description]: this.attachment.description || ''
       });
     }
   }
@@ -86,7 +88,7 @@ export class AttachmentDetailComponent implements OnInit {
 
       switch (fieldName) {
         case this.fieldNames.description:
-          fieldInitialValue = this.attachment.metadata[fieldName];
+          fieldInitialValue = this.attachment.description;
           break;
         case this.fieldNames.filename:
           fieldInitialValue = this.getFilenameWithoutExtension();
@@ -99,17 +101,18 @@ export class AttachmentDetailComponent implements OnInit {
   }
 
   getAttachmentUrl(): string {
-    return `${environment.apiUrl}/projects/${this.attachment?.metadata.project}/attachments/${this.attachment?._id}`;
+    return `${environment.apiUrl}/projects/${this.project?._id}/attachments/${this.attachment?._id}`;
   }
 
   getAttachmentUploadDateTime(uploadRawDateTime: string): string {
     return moment(uploadRawDateTime).format('MMMM Do YYYY, h:mm:ss A');
   }
 
-  downloadAttachment(fileUrl: string, fileName: string): void {
+  downloadAttachment(fileUrl: string, fileName: string, contentType: string): void {
     this.downloadRequested.emit({
       fileUrl,
-      fileName
+      fileName,
+      contentType
     });
   }
 }

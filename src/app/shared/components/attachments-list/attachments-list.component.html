@@ -58,6 +58,7 @@
       </mat-expansion-panel-header>
 
       <app-attachment-detail [attachment]="attachment"
+                             [project]="project"
                              [canEdit]="canEdit"
                              (saveRequested)="saveAttachment($event)"
                              (downloadRequested)="downloadAttachment($event)">

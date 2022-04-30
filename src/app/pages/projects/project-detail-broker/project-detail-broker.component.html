@@ -94,6 +94,7 @@
           <ng-container *ngSwitchCase="viewMode.FocusView">
             <ng-container *ngIf="selectedAttachment$ | async as selectedAttachment">
               <app-attachment-focus [attachment]="selectedAttachment"
+                                    [project]="project"
                                     [attachmentDirectLink]="getAttachmentDirectLink(project, selectedAttachment)"
                                     [canEdit]="isViewerAtLeastDeveloper(project)"
                                     (saveRequested)="saveAttachment($event)"
@@ -105,6 +106,7 @@
           <ng-container *ngSwitchDefault>
             <ng-container *ngIf="attachments$ | async as attachments">
               <app-attachments-list [attachments]="attachments"
+                                    [project]="project"
                                     [canEdit]="isViewerAtLeastDeveloper(project)"
                                     [uploadProgress$]="uploadProjectAttachmentProgress$"
                                     [closeAttachmentCreationPanel]="closeAttachmentCreationPanel$"

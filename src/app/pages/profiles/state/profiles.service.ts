@@ -55,10 +55,12 @@ export class ProfilesService {
     })
       .pipe(
         tap(response => {
-          this.profilesStore.set(response.data);
-          this.profilesStore.update({
-            totalCount: response.total
-          });
+          if (response) {
+            this.profilesStore.set(response.data);
+            this.profilesStore.update({
+              totalCount: response.total
+            });
+          }
         })
       );
   }

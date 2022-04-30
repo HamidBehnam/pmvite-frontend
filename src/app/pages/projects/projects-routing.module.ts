@@ -3,15 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [{
-  path: '',
-  redirectTo: 'list',
-  pathMatch: 'full'
-}, {
-  path: 'list',
-  loadChildren: () => import('./projects-list-broker/projects-list-broker.module').then(module => module.ProjectsListBrokerModule)
-}, {
   path: ':id',
   loadChildren: () => import('./project-detail-broker/project-detail-broker.module').then(module => module.ProjectDetailBrokerModule)
+}, {
+  path: '',
+  loadChildren: () => import('./projects-list-broker/projects-list-broker.module').then(module => module.ProjectsListBrokerModule)
 }];
 
 @NgModule({

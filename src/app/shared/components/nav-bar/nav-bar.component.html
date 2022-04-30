@@ -8,8 +8,8 @@
     </button>
     <div class="logo-container">
       <div class="logo">
-        <img src="assets/images/color-based/white/pm-logo.svg" alt="" class="d-sm-none">
-        <img src="assets/images/color-based/white/pm-logo-icon.svg" alt="" class="d-xl-none d-lg-none d-md-none">
+        <img src="assets/images/color-based/white/pmv-logo.svg" alt="" class="d-sm-none">
+        <img src="assets/images/color-based/white/pmv-logo-icon.svg" alt="" class="d-xl-none d-lg-none d-md-none">
       </div>
     </div>
     <span class="toolbar-spacer"></span>
@@ -20,7 +20,11 @@
           <ng-container *ngIf="appQuery.selectUserProfile$ | async as userProfile else noProfile">
             <button mat-button [matMenuTriggerFor]="menu" class="avatar">
               <mat-icon>more_vert</mat-icon>
-                <img *ngIf="{imageUrl: profilesHelpersService.getProfileImage(userProfile) | withAuth | async} as context"
+                <img *ngIf="!userProfile.image"
+                     [src]="profilesHelpersService.getProfileImage(userProfile)"
+                     [class.image-loaded]="profileImageLoaded"
+                     (load)="setProfileImageLoadStatus()" alt="">
+                <img *ngIf="userProfile.image && {imageUrl: profilesHelpersService.getProfileImage(userProfile) | withAuth | async} as context"
                      [src]="context.imageUrl"
                      [class.image-loading]="!context.imageUrl"
                      [class.image-loaded]="profileImageLoaded"

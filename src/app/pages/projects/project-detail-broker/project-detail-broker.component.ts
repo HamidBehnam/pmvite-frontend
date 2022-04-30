@@ -30,7 +30,6 @@ import { AuthService } from '@auth0/auth0-angular';
 import { ScrollableTabsDialogComponent } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.component';
 import { UiService } from '../../../shared/services/ui.service';
 import { FileDownloadMeta } from '../../../shared/types/file-download-meta';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-project-detail-broker',
@@ -220,7 +219,7 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
   }
 
   goToAllProjects(): void {
-    this.router.navigate(['projects', 'list']);
+    this.router.navigate(['projects']);
   }
 
   onProjectImageFileSelected(project: Project, file: File): void {
@@ -316,7 +315,21 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
     this.attachmentsService.downloadAttachment(fileDownloadMeta.fileUrl)
       .subscribe(data => {
 
-        saveAs(data, fileDownloadMeta.fileName);
+        const blob = new Blob([data], {type: fileDownloadMeta.contentType});
+
+        const downloadURL = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = fileDownloadMeta.fileName;
+        // this is necessary as link.click() does not work on the latest firefox
+        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+
+        setTimeout(function () {
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(downloadURL);
+          link.remove();
+        }, 100);
 
       }, _ => this.matSnackBar.open('Something went wrong, please try again later!', 'OK', {duration: 5000}));
   }
@@ -399,7 +412,7 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(choice => {
       if (choice) {
         this.projectsService.deleteProject(this.requestedProjectId).subscribe(_ => {
-          this.router.navigate(['projects', 'list']);
+          this.router.navigate(['projects']);
           this.matSnackBar.open('Project was successfully removed!', 'OK', {duration: 5000});
         });
       }

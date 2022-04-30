@@ -1,11 +1,14 @@
 export interface FileReference {
   _id: string;
-  length: number;
-  chunkSize: number;
-  uploadDate: string;
   filename: string;
-  md5: string;
-  metadata: any;
+  contentType: string;
+  prefix: string;
+  size: number;
+  uploadedBy: string;
+  storageOwner: string;
+  createdAt: string;
+  updatedAt: string;
+  description: string;
 }
 
 export function createFileReference(params: Partial<FileReference>) {

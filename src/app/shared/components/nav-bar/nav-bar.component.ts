@@ -42,14 +42,14 @@ export class NavBarComponent implements OnInit {
 
   login(): void {
     this.authService.loginWithRedirect({
-      appState: { target: '/projects/list' }
+      appState: { target: '/projects' }
     });
   }
 
   signup(): void {
     this.authService.loginWithRedirect({
       screen_hint: 'signup',
-      appState: { target: '/projects/list' }
+      appState: { target: '/projects' }
     });
   }
 
