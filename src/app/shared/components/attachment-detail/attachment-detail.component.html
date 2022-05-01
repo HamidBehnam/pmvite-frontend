@@ -42,8 +42,13 @@
             <div class="field-content">
               <button mat-stroked-button
                       color="primary"
+                      (click)="previewAttachment(getAttachmentUrl(), attachment.filename, attachment.contentType)">
+                Preview
+              </button>
+              <button mat-stroked-button
+                      color="primary"
                       (click)="downloadAttachment(getAttachmentUrl(), attachment.filename, attachment.contentType)">
-                Download Attachment
+                Download
               </button>
             </div>
           </div>

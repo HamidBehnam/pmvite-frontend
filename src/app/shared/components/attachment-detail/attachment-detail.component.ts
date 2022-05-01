@@ -25,6 +25,7 @@ export class AttachmentDetailComponent implements OnInit {
   @Input() canEdit?: boolean;
   @Output() saveRequested: EventEmitter<FormInteractionResult<AttachmentForm>>;
   @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
+  @Output() previewRequested: EventEmitter<FileDownloadMeta>;
   attachmentFormGroup: FormGroup;
   editingFieldName = '';
   fieldNames = {
@@ -40,6 +41,7 @@ export class AttachmentDetailComponent implements OnInit {
 
     this.saveRequested = new EventEmitter<FormInteractionResult<AttachmentForm>>();
     this.downloadRequested = new EventEmitter<FileDownloadMeta>();
+    this.previewRequested = new EventEmitter<FileDownloadMeta>();
   }
 
   ngOnInit(): void {
@@ -110,6 +112,14 @@ export class AttachmentDetailComponent implements OnInit {
 
   downloadAttachment(fileUrl: string, fileName: string, contentType: string): void {
     this.downloadRequested.emit({
+      fileUrl,
+      fileName,
+      contentType
+    });
+  }
+
+  previewAttachment(fileUrl: string, fileName: string, contentType: string): void {
+    this.previewRequested.emit({
       fileUrl,
       fileName,
       contentType

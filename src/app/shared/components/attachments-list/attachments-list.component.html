@@ -61,7 +61,8 @@
                              [project]="project"
                              [canEdit]="canEdit"
                              (saveRequested)="saveAttachment($event)"
-                             (downloadRequested)="downloadAttachment($event)">
+                             (downloadRequested)="downloadAttachment($event)"
+                             (previewRequested)="previewAttachment($event)">
       </app-attachment-detail>
 
       <mat-action-row>

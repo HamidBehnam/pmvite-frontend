@@ -21,6 +21,7 @@ import { ProjectGeneralModule } from '../../../shared/components/project-general
 import { NgxJdenticonModule } from 'ngx-jdenticon';
 import { ScrollableTabsDialogModule } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.module';
 import { WithAuthModule } from '../../../shared/pipes/with-auth/with-auth.module';
+import { AttachmentPreviewDialogModule } from "../../../shared/components/attachment-preview-dialog/attachment-preview-dialog.module";
 
 
 
@@ -49,7 +50,8 @@ import { WithAuthModule } from '../../../shared/pipes/with-auth/with-auth.module
     ProjectSettingsListModule,
     NgxJdenticonModule,
     ScrollableTabsDialogModule,
-    WithAuthModule
+    WithAuthModule,
+    AttachmentPreviewDialogModule
   ]
 })
 export class ProjectDetailBrokerModule { }

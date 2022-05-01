@@ -30,6 +30,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { ScrollableTabsDialogComponent } from '../../../shared/components/scrollable-tabs-dialog/scrollable-tabs-dialog.component';
 import { UiService } from '../../../shared/services/ui.service';
 import { FileDownloadMeta } from '../../../shared/types/file-download-meta';
+import { AttachmentPreviewDialogComponent } from "../../../shared/components/attachment-preview-dialog/attachment-preview-dialog.component";
 
 @Component({
   selector: 'app-project-detail-broker',
@@ -317,7 +318,7 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
 
         const blob = new Blob([data], {type: fileDownloadMeta.contentType});
 
-        const downloadURL = window.URL.createObjectURL(blob);
+        const downloadURL = URL.createObjectURL(blob);
 
         const link = document.createElement('a');
         link.href = downloadURL;
@@ -327,11 +328,19 @@ export class ProjectDetailBrokerComponent implements OnInit, OnDestroy {
 
         setTimeout(function () {
           // For Firefox it is necessary to delay revoking the ObjectURL
-          window.URL.revokeObjectURL(downloadURL);
+          URL.revokeObjectURL(downloadURL);
           link.remove();
         }, 100);
 
       }, _ => this.matSnackBar.open('Something went wrong, please try again later!', 'OK', {duration: 5000}));
+  }
+
+  previewAttachment(fileDownloadMeta: FileDownloadMeta): void {
+    this.matDialog.open(AttachmentPreviewDialogComponent, {
+      disableClose: true,
+      panelClass: 'attachment-preview-dialog-panel',
+      data: fileDownloadMeta
+    });
   }
 
   deleteMember(memberId: string): void {
