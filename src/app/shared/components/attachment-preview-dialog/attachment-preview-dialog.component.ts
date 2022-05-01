@@ -4,6 +4,7 @@ import {FileDownloadMeta} from "../../types/file-download-meta";
 import {AttachmentsService} from "../../../pages/attachments/state/attachments.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {UiService} from "../../services/ui.service";
 
 @Component({
   selector: 'app-attachment-preview-dialog',
@@ -18,6 +19,7 @@ export class AttachmentPreviewDialogComponent implements OnInit {
     private attachmentsService: AttachmentsService,
     private matSnackBar: MatSnackBar,
     private domSanitizer: DomSanitizer,
+    public uiService: UiService,
   ) {
   }
 
