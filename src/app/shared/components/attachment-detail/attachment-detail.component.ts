@@ -9,6 +9,8 @@ import { UiService } from '../../services/ui.service';
 import { labelShowHideTrigger } from '../../animations/label-show-hide-trigger';
 import { FileDownloadMeta } from '../../types/file-download-meta';
 import { Project } from '../../types/project.model';
+import { ProcessedFileSize } from "../../types/processed-file-size.type";
+import { FileSizeProcessorService } from "../../services/file-size-processor.service";
 
 @Component({
   selector: 'app-attachment-detail',
@@ -32,8 +34,12 @@ export class AttachmentDetailComponent implements OnInit {
     filename: 'filename',
     description: 'description'
   };
+  processedFileSize?: ProcessedFileSize;
 
-  constructor(public uiService: UiService) {
+  constructor(
+    public uiService: UiService,
+    private fileSizeProcessorService: FileSizeProcessorService,
+  ) {
     this.attachmentFormGroup = new FormGroup({
        [this.fieldNames.filename]: new FormControl('', Validators.required),
        [this.fieldNames.description]: new FormControl('')
@@ -46,6 +52,8 @@ export class AttachmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.attachment) {
+      this.processedFileSize = this.fileSizeProcessorService.process(this.attachment.size);
+
       this.attachmentFormGroup.setValue({
         [this.fieldNames.filename]: this.getFilenameWithoutExtension(),
         [this.fieldNames.description]: this.attachment.description || ''

@@ -99,10 +99,10 @@
 
 <ng-template #actionButtons let-fieldName="fieldName">
   <span class="inline-action-container">
-    <button mat-icon-button type="button" (click)="saveField(fieldName)" class="field-action-button">
+    <button mat-icon-button (click)="saveField(fieldName)" class="field-action-button">
       <mat-icon>check</mat-icon>
     </button>
-    <button mat-icon-button type="button" (click)="cancelEdit(fieldName)" class="field-action-button">
+    <button mat-icon-button (click)="cancelEdit(fieldName)" class="field-action-button">
       <mat-icon>close</mat-icon>
     </button>
   </span>
