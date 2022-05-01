@@ -3,7 +3,7 @@
 
 .mat-expansion-panel {
   &.mat-expanded {
-    box-shadow: 0 0 7px 0 $custom-expansions-box-shadow;
+    box-shadow: 0 4px 10px -2px $custom-expansions-box-shadow;
     border: 1px solid $page-main-blue;
 
     .mat-expansion-panel-header,
