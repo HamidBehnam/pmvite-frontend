@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Preview</h2>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="blobUrl">
+    <img *ngIf="isImage" [src]="blobUrl" class="image-preview" alt="preview" />
+    <div *ngIf="isPdf">
+      <embed *ngIf="!uiService.isMobileBrowser" [src]="blobUrl" class="pdf-preview" />
+      <span *ngIf="uiService.isMobileBrowser">This file's preview is not supported on this device.</span>
+    </div>
+    <div *ngIf="!isImage && !isPdf">
+      <span>Preview is not supported for this file.</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

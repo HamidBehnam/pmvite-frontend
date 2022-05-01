@@ -44,10 +44,10 @@ export function getProjectImageSpecification(): FileSpecification {
 
 export function getProjectAttachmentSpecification(): FileSpecification {
   return {
-    acceptedFileTypes: 'application/pdf,application/msword,' +
+    acceptedFileTypes: 'application/pdf,application/json,application/msword,' +
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,' +
       'application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,' +
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/png,image/jpeg,text/plain',
-    acceptedFileSize: 5000000
+    acceptedFileSize: 105906176
   };
 }

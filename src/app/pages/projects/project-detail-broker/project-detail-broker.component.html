@@ -99,6 +99,7 @@
                                     [canEdit]="isViewerAtLeastDeveloper(project)"
                                     (saveRequested)="saveAttachment($event)"
                                     (downloadRequested)="downloadAttachment($event)"
+                                    (previewRequested)="previewAttachment($event)"
                                     (projectAttachmentsListRequested)="showProjectAttachmentsList()">
               </app-attachment-focus>
             </ng-container>
@@ -113,6 +114,7 @@
                                     [attachmentCreationPanelOpeningSignal]="attachmentCreationPanelOpeningSignal"
                                     (saveRequested)="saveAttachment($event)"
                                     (downloadRequested)="downloadAttachment($event)"
+                                    (previewRequested)="previewAttachment($event)"
                                     (focusViewRequested)="openAttachmentInFocusView($event)"
                                     (deleteRequested)="deleteAttachment($event)"
                                     (attachmentCreationPanelOpened)

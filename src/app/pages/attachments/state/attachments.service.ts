@@ -51,6 +51,13 @@ export class AttachmentsService {
 
     return this.http.patch<FileReference>(`${environment.apiUrl}/projects/${projectId}/attachments/${attachmentId}`, payload)
       .pipe(
+        tap(attachment => {
+          this.attachmentsStore.update({
+            selectedAttachment: attachment
+          });
+
+          this.attachmentsStore.update(attachmentId, attachment);
+        }),
         catchError(error => {
           if (backupAttachment) {
             const attachmentForm: Partial<AttachmentForm> = {

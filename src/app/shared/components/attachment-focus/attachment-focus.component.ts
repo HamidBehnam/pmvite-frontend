@@ -19,11 +19,13 @@ export class AttachmentFocusComponent implements OnInit {
   @Output() projectAttachmentsListRequested: EventEmitter<void>;
   @Output() saveRequested: EventEmitter<FormInteractionResult<AttachmentForm>>;
   @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
+  @Output() previewRequested: EventEmitter<FileDownloadMeta>;
 
   constructor() {
     this.projectAttachmentsListRequested = new EventEmitter<void>();
     this.saveRequested = new EventEmitter<FormInteractionResult<AttachmentForm>>();
     this.downloadRequested = new EventEmitter<FileDownloadMeta>();
+    this.previewRequested = new EventEmitter<FileDownloadMeta>();
     this.attachmentDirectLink = '';
   }
 
@@ -40,5 +42,9 @@ export class AttachmentFocusComponent implements OnInit {
 
   downloadAttachment(fileDownloadMeta: FileDownloadMeta): void {
     this.downloadRequested.emit(fileDownloadMeta);
+  }
+
+  previewAttachment(fileDownloadMeta: FileDownloadMeta): void {
+    this.previewRequested.emit(fileDownloadMeta);
   }
 }

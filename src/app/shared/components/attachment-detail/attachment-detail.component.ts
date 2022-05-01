@@ -9,6 +9,8 @@ import { UiService } from '../../services/ui.service';
 import { labelShowHideTrigger } from '../../animations/label-show-hide-trigger';
 import { FileDownloadMeta } from '../../types/file-download-meta';
 import { Project } from '../../types/project.model';
+import { ProcessedFileSize } from "../../types/processed-file-size.type";
+import { FileSizeProcessorService } from "../../services/file-size-processor.service";
 
 @Component({
   selector: 'app-attachment-detail',
@@ -25,14 +27,19 @@ export class AttachmentDetailComponent implements OnInit {
   @Input() canEdit?: boolean;
   @Output() saveRequested: EventEmitter<FormInteractionResult<AttachmentForm>>;
   @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
+  @Output() previewRequested: EventEmitter<FileDownloadMeta>;
   attachmentFormGroup: FormGroup;
   editingFieldName = '';
   fieldNames = {
     filename: 'filename',
     description: 'description'
   };
+  processedFileSize?: ProcessedFileSize;
 
-  constructor(public uiService: UiService) {
+  constructor(
+    public uiService: UiService,
+    private fileSizeProcessorService: FileSizeProcessorService,
+  ) {
     this.attachmentFormGroup = new FormGroup({
        [this.fieldNames.filename]: new FormControl('', Validators.required),
        [this.fieldNames.description]: new FormControl('')
@@ -40,10 +47,13 @@ export class AttachmentDetailComponent implements OnInit {
 
     this.saveRequested = new EventEmitter<FormInteractionResult<AttachmentForm>>();
     this.downloadRequested = new EventEmitter<FileDownloadMeta>();
+    this.previewRequested = new EventEmitter<FileDownloadMeta>();
   }
 
   ngOnInit(): void {
     if (this.attachment) {
+      this.processedFileSize = this.fileSizeProcessorService.process(this.attachment.size);
+
       this.attachmentFormGroup.setValue({
         [this.fieldNames.filename]: this.getFilenameWithoutExtension(),
         [this.fieldNames.description]: this.attachment.description || ''
@@ -110,6 +120,14 @@ export class AttachmentDetailComponent implements OnInit {
 
   downloadAttachment(fileUrl: string, fileName: string, contentType: string): void {
     this.downloadRequested.emit({
+      fileUrl,
+      fileName,
+      contentType
+    });
+  }
+
+  previewAttachment(fileUrl: string, fileName: string, contentType: string): void {
+    this.previewRequested.emit({
       fileUrl,
       fileName,
       contentType

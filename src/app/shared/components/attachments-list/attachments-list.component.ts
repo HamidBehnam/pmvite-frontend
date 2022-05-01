@@ -28,6 +28,7 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
   @Output() deleteRequested: EventEmitter<string>;
   @Output() attachmentSelectedForUpload: EventEmitter<File>;
   @Output() downloadRequested: EventEmitter<FileDownloadMeta>;
+  @Output() previewRequested: EventEmitter<FileDownloadMeta>;
   @ViewChild('attachmentCreationPanel') attachmentCreationPanel?: MatExpansionPanel;
   projectAttachmentSpecification: FileSpecification;
   attachmentCreationPanelOpeningSubscription?: Subscription;
@@ -45,6 +46,7 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
     this.attachmentCreationPanelOpened = new EventEmitter<void>();
     this.attachmentCreationPanelClosed = new EventEmitter<void>();
     this.downloadRequested = new EventEmitter<FileDownloadMeta>();
+    this.previewRequested = new EventEmitter<FileDownloadMeta>();
     this.attachmentCreationPanelOpeningSignal = new Subject();
   }
 
@@ -66,6 +68,10 @@ export class AttachmentsListComponent implements OnInit, AfterViewInit, OnDestro
 
   downloadAttachment(fileDownloadMeta: FileDownloadMeta): void {
     this.downloadRequested.emit(fileDownloadMeta);
+  }
+
+  previewAttachment(fileDownloadMeta: FileDownloadMeta): void {
+    this.previewRequested.emit(fileDownloadMeta);
   }
 
   openInFocusView(attachment: FileReference): void {

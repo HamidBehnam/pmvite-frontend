@@ -22,10 +22,10 @@
           </div>
         </div>
 
-        <div class="field-container">
+        <div *ngIf="processedFileSize" class="field-container">
           <div class="field-label mat-body-2">File size</div>
           <div class="field-content-wrapper">
-            <div class="field-content">{{attachment.size}}</div>
+            <div class="field-content">{{processedFileSize.size}} {{processedFileSize.unit}}</div>
           </div>
         </div>
 
@@ -42,8 +42,13 @@
             <div class="field-content">
               <button mat-stroked-button
                       color="primary"
+                      (click)="previewAttachment(getAttachmentUrl(), attachment.filename, attachment.contentType)">
+                Preview
+              </button>
+              <button mat-stroked-button
+                      color="primary"
                       (click)="downloadAttachment(getAttachmentUrl(), attachment.filename, attachment.contentType)">
-                Download Attachment
+                Download
               </button>
             </div>
           </div>
@@ -77,10 +82,10 @@
 
 <ng-template #actionButtons let-fieldName="fieldName">
   <span class="inline-action-container">
-    <button mat-icon-button type="button" (click)="saveField(fieldName)" class="field-action-button">
+    <button mat-icon-button (click)="saveField(fieldName)" class="field-action-button">
       <mat-icon>check</mat-icon>
     </button>
-    <button mat-icon-button type="button" (click)="cancelEdit(fieldName)" class="field-action-button">
+    <button mat-icon-button (click)="cancelEdit(fieldName)" class="field-action-button">
       <mat-icon>close</mat-icon>
     </button>
   </span>
