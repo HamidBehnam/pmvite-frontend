@@ -2,7 +2,7 @@
 <mat-dialog-content class="mat-typography">
   <div *ngIf="blobUrl">
     <img *ngIf="isImage" [src]="blobUrl" class="image-preview" alt="preview" />
-    <embed *ngIf="isPdf" [src]="blobUrl" class="pdf-preview" />
+    <iframe *ngIf="isPdf" [src]="blobUrl" class="pdf-preview"></iframe>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
