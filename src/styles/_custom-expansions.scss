@@ -4,12 +4,12 @@
 .mat-expansion-panel {
   &.mat-expanded {
     box-shadow: 0 4px 10px -2px $custom-expansions-box-shadow;
-    border: 1px solid $page-main-blue;
+    border: 1px solid $page-primary-color-lighter;
 
     .mat-expansion-panel-header,
     .mat-expansion-panel-header:focus,
     .mat-expansion-panel-header:hover {
-      background-color: $page-main-blue;
+      background-color: $page-primary-color-lighter;
       border-radius: 0;
 
       &:not(.no-extension-margin) {

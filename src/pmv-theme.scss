@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@import 'pmv-palette';
+
+$pmv-primary: mat.define-palette($pmv-palette, 500);
+$pmv-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$pmv-warn: mat.define-palette(mat.$red-palette);
+
+$pmv-theme: mat.define-light-theme((
+  color: (
+    primary: $pmv-primary,
+    accent: $pmv-accent,
+    warn: $pmv-warn,
+  )
+));
+
+@include mat.all-component-themes($pmv-theme);
